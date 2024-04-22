@@ -4,9 +4,17 @@
   box-sizing: border-box;
 }
 
+:root {
+  --dark: #181a1b;
+  --gray: #858d94;
+  --light-gray: #cac6bf;
+  --medium-padding: 1rem 8.5rem;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   color: #fff;
+  background-color: var(--dark);
 }
 
 body::-webkit-scrollbar {
@@ -14,11 +22,11 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-  background-color: #181a1b;
+  background-color: var(--dark);
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #858d94;
+  background-color: var(--gray);
 }
 
 .header {
@@ -39,29 +47,98 @@ body::-webkit-scrollbar-thumb {
   height: 50%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   font-weight: 600;
 }
 
-.header .bottom .left {
+.bottom .left {
   display: flex;
   align-items: center;
   gap: 1.8rem;
 }
 
-.header .bottom .left .nav {
+.bottom .right {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.header .bottom .logo {
+.bottom .right span {
+  font-size: 1.8rem;
+  font-weight: 200;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+span hr {
+  border-color: var(--gray);
+  width: 0%;
+  border-width: 0.1rem;
+  opacity: 0;
+  transition: width 1s ease-in;
+}
+
+span:hover > hr {
+  width: 100%;
+  opacity: 100%;
+}
+
+.bottom .logo {
   font-family: Astera;
   font-size: 1.6rem;
 }
 
+.hero span {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.hero-container {
+  padding: var(--medium-padding);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 1rem;
+  color: var(--light-gray);
+}
+
+.gender {
+  margin-top: 2rem;
+  padding: var(--medium-padding);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.gender img {
+  width: 50%;
+}
+
+.essentials {
+  padding: var(--medium-padding);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 1rem;
+  color: var(--light-gray);
+}
+
+.essentials span {
+  margin-top: 2rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
 @media only screen and (min-width: 1024px) {
   .header {
-    padding: 1rem 8.5rem;
+    padding: var(--medium-padding);
   }
 
   .hero img {

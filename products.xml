@@ -1,1 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="products.xsl"?>
+<Products>
+<Product>
+    <Name>Techwear  Black Pants</Name>
+    <Price>3,999</Price>
+    <Location>images/pants.jpg</Location>
+</Product>
+<Product>
+    <Name>Tactical Joggers</Name>
+    <Price>3,399</Price>
+    <Location>images/pants2.jpg</Location>
+</Product>
+<Product>
+    <Name>High Collar Hoodie</Name>
+    <Price>4,999</Price>
+    <Location>images/hoodie.jpg</Location>
+</Product>
+<Product>
+    <Name>XGXF Jacket</Name>
+    <Price>4,999</Price>
+    <Location>images/jacket.jpg</Location>
+</Product>
+<Product>
+    <Name>Black Techwear Jacket</Name>
+    <Price>3,999</Price>
+    <Location>images/jacket2.jpg</Location>
+</Product>
+</Products>
