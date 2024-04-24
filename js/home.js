@@ -3,6 +3,8 @@ $(document).ready(function () {
   let header = $(".header");
   let audio = $(".background-music");
 
+  audio[0].volume = 0.2;
+
   $(window).scroll(function (event) {
     let st = $(this).scrollTop();
     if (st > lastScrollTop) {
@@ -11,15 +13,20 @@ $(document).ready(function () {
       header.css("justify-content", "center");
 
       audio[0].play();
-      audio[0].volume = 0.2;
     } else {
       // Scroll up
       header.css("height", "18vh"); // Set the original height
       header.css("justify-content", "end");
+
+      audio[0].pause();
     }
     lastScrollTop = st;
   });
 });
+
+function isInView(elem) {
+  return $(elem).offset().top - $(window).scrollTop() < $(elem).height();
+}
 
 $.ajax({
   url: "products.xml",
