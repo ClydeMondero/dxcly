@@ -1,3 +1,22 @@
+$(document).ready(function () {
+  let lastScrollTop = 0;
+  let header = $(".header");
+
+  $(window).scroll(function (event) {
+    let st = $(this).scrollTop();
+    if (st > lastScrollTop) {
+      // Scroll down
+      header.css("height", "10vh"); // Set the minimized height
+      header.css("justify-content", "center");
+    } else {
+      // Scroll up
+      header.css("height", "18vh"); // Set the original height
+      header.css("justify-content", "end");
+    }
+    lastScrollTop = st;
+  });
+});
+
 $.ajax({
   url: "products.xml",
   dataType: "xml",
