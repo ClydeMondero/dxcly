@@ -98,6 +98,16 @@ body::-webkit-scrollbar-thumb {
 
 .hero {
   margin-top: 6rem;
+  position: relative;
+}
+
+.hero-overlay {
+  position: absolute;
+  width: 100%;
+  height: 88%;
+  background-image: url("../images/glitch.gif");
+  background-size: cover;
+  opacity: 0.1;
 }
 
 .hero span {

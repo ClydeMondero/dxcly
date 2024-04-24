@@ -1,6 +1,7 @@
 $(document).ready(function () {
   let lastScrollTop = 0;
   let header = $(".header");
+  let audio = $(".background-music");
 
   $(window).scroll(function (event) {
     let st = $(this).scrollTop();
@@ -8,6 +9,9 @@ $(document).ready(function () {
       // Scroll down
       header.css("height", "10vh"); // Set the minimized height
       header.css("justify-content", "center");
+
+      audio[0].play();
+      audio[0].volume = 0.2;
     } else {
       // Scroll up
       header.css("height", "18vh"); // Set the original height
@@ -43,7 +47,6 @@ $.ajax({
             let src = $(event.target).attr("src");
             src = src.substring(7); //trims the images/
             src = src.substring(0, src.indexOf("-")); //trims .jpg
-            console.log(src);
 
             $(event.target).attr("src", "images/" + src + ".jpg");
           }
