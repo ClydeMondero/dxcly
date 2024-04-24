@@ -35,13 +35,10 @@ body::-webkit-scrollbar-thumb {
   padding: 1.8rem;
   display: flex;
   flex-direction: column;
+  justify-content: end;
   background-color: #000;
   text-transform: uppercase;
   font-size: 0.85rem;
-}
-
-.header .top {
-  height: 50%;
 }
 
 .header .bottom {
@@ -182,6 +179,11 @@ body::-webkit-scrollbar-thumb {
   color: #fff;
 }
 
+.essentials button:hover {
+  background-color: #fff;
+  color: var(--dark-gray);
+}
+
 .testimonial {
   margin-top: 2rem;
   padding: var(--medium-padding);
@@ -227,6 +229,11 @@ body::-webkit-scrollbar-thumb {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  transition: all 3s ease-in;
+}
+
+.service:hover > span {
+  transform: translateY(-10px);
 }
 
 .footer {

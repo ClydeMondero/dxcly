@@ -11,7 +11,8 @@
                     <div class="product">
                         <xsl:attribute name="style">display: flex; flex-direction: column;
         align-items: center; gap: 1rem;</xsl:attribute>
-                        <img src="{Location}" alt="{Name}" width="275px" height="350px" />
+                        <img src="{Location}" alt="{Name}" width="275px"
+                            height="350px" />
                         <div class="product-details">
                             <span>
                                 <xsl:attribute name="style">text-transform: uppercase; font-weight:
