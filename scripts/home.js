@@ -15,7 +15,7 @@ xmlhttp.onreadystatechange = function () {
 
         let resultDoc = xsltProcessor.transformToFragment(xmlDoc, document);
 
-        document.querySelector(".essentials").appendChild(resultDoc);
+        document.querySelector(".essentials-products").appendChild(resultDoc);
       }
     };
 

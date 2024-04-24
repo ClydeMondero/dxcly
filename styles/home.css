@@ -8,6 +8,7 @@
   --dark: #181a1b;
   --gray: #858d94;
   --light-gray: #cac6bf;
+  --dark-gray: #2f3133;
   --medium-padding: 1rem 8.5rem;
 }
 
@@ -26,7 +27,7 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: var(--gray);
+  background-color: var(--light-gray);
 }
 
 .header {
@@ -68,21 +69,22 @@ body::-webkit-scrollbar-thumb {
   font-weight: 200;
 }
 
-.nav {
+.center {
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-span hr {
+.center span hr {
   border-color: var(--gray);
   width: 0%;
   border-width: 0.1rem;
   opacity: 0;
-  transition: width 1s ease-in;
+  transition: width 0.8s ease-in;
 }
 
-span:hover > hr {
+.center span:hover > hr {
   width: 100%;
   opacity: 100%;
 }
@@ -116,11 +118,46 @@ span:hover > hr {
   gap: 1rem;
 }
 
-.gender img {
+.gender button {
+  border: none;
+  padding: 1rem 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 600;
+}
+
+.female {
+  position: relative;
   width: 50%;
 }
 
+.female img {
+  width: 100%;
+}
+
+.female button {
+  background-color: var(--dark);
+  color: #fff;
+}
+
+.male button {
+  background-color: #fff;
+  color: var(--dark);
+}
+
+.male {
+  position: relative;
+  width: 50%;
+}
+
+.male img {
+  width: 100%;
+}
+
 .essentials {
+  margin-top: 2rem;
   padding: var(--medium-padding);
   display: flex;
   flex-direction: column;
@@ -134,6 +171,97 @@ span:hover > hr {
   font-size: 1.4rem;
   font-weight: 600;
   text-transform: uppercase;
+}
+
+.essentials button {
+  align-self: center;
+  width: max-content;
+  padding: 1rem 2rem;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+.testimonial {
+  margin-top: 2rem;
+  padding: var(--medium-padding);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10rem;
+}
+
+.testimonial img {
+  width: 40%;
+}
+
+.testimony {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.testimony h3,
+.testimony h4 {
+  text-transform: uppercase;
+}
+
+.testimony-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.services {
+  margin-top: 4rem;
+  padding: 2.5rem 0;
+  background-color: var(--dark-gray);
+  display: flex;
+  justify-content: center;
+  gap: 10rem;
+}
+
+.service {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer {
+  padding: var(--medium-padding);
+  background-color: #000;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+}
+
+.footer .top {
+  display: flex;
+  gap: 10rem;
+}
+
+.footer .top-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer .top-content span {
+  font-size: 0.8rem;
+}
+
+.footer .top-content .logo {
+  font-family: Astera;
+  font-size: 2rem;
+}
+
+.footer .bottom {
+  font-size: 0.8rem;
 }
 
 @media only screen and (min-width: 1024px) {
