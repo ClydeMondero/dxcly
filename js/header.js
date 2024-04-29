@@ -14,4 +14,8 @@ $(document).ready(function () {
       hoveredDropdown.hide();
     }
   );
+
+  dropdown.mouseleave(() => {
+    dropdown.hide();
+  });
 });

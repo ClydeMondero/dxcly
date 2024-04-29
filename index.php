@@ -13,11 +13,14 @@
 
 <body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <?php include 'utils/check_session.php'; ?>
   <?php include  "templates/header.php"; ?>
 
   <!-- Hero -->
   <div class="hero">
     <div class="hero-overlay">
+    </div>
+    <div class="hero-overlay2">
     </div>
     <img src="assets/hero.jpg" alt="" />
     <div class="hero-container">

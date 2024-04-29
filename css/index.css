@@ -48,6 +48,15 @@ button {
   opacity: 0.1;
 }
 
+.hero-overlay2 {
+  position: absolute;
+  width: 100%;
+  height: 88%;
+  background-image: url("../assets/glitch2.gif");
+  background-size: contain;
+  opacity: 0.045;
+}
+
 .hero span {
   font-size: 1.4rem;
   font-weight: 600;

@@ -9,47 +9,77 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
     case 'GET':
-        //Fetch all users
-        $stmt = $pdo->query('SELECT * from users');
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($result);
+        try {
+            //Fetch all users
+            $stmt = $pdo->query('SELECT * from users');
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            echo json_encode($result);
+        } catch (Exception $e) {
+            echo $e;
+            echo json_encode(['message' => 'Something went wrong.']);
+        }
         break;
     case 'POST':
-        //Add a new user
-        $data = json_decode(file_get_contents('php://input'), true);
-        $username = $data['username'];
-        $password = $data['password'];
-        $account_type = $data['account_type'];
+        try {
+            //Add a new user
+            $data = json_decode(file_get_contents('php://input'), true);
+            $fullName = $data['full_name'];
+            $address = $data['address'];
+            $email = $data['email'];
+            $contactNumber = $data['contact_number'];
+            $username = $data['username'];
+            $password = $data['password'];
+            $account_type = $data['account_type'];
 
-        $stmt = $pdo->prepare('INSERT INTO users (username, password, account_type) VALUES (?, ?, ?)');
-        $stmt->execute([$username, $password, $account_type]);
+            $stmt = $pdo->prepare('INSERT INTO users (full_name, address, email, contact_number, username, password, account_type) VALUES (?, ?, ?, ?, ?, ?, ?)');
+            $stmt->execute([$fullName, $address, $email, $contactNumber, $username, $password, $account_type]);
 
-        echo json_encode(['message' => 'User added successfully']);
+            echo json_encode(['message' => 'User added successfully', 'user' => $data]);
+        } catch (Exception $e) {
+            echo $e;
+            echo json_encode(['message' => 'Something went wrong.']);
+        }
         break;
     case 'PATCH':
-        //Update a user
-        $data = json_decode(file_get_contents('php://input'), true);
+        try {
+            //Update a user
+            $data = json_decode(file_get_contents('php://input'), true);
 
-        $id = $data['id'];
-        $username = $data['username'];
-        $password = $data['password'];
-        $account_type = $data['account_type'];
+            $id = $data['id'];
+            $fullName = $data['full_name'];
+            $address = $data['address'];
+            $email = $data['email'];
+            $contactNumber = $data['contact_number'];
+            $username = $data['username'];
+            $password = $data['password'];
+            $account_type = $data['account_type'];
 
-        $stmt = $pdo->prepare('UPDATE users SET username=?, password=?, account_type=? WHERE id=?');
-        $stmt->execute([$username, $password, $account_type, $id]);
+            $stmt = $pdo->prepare('UPDATE users SET full_name=?, address=?, email=?, contact_number=?, username=?, password=?, account_type=? WHERE id=?');
+            $stmt->execute([$fullName, $address, $email, $contactNumber, $username, $password, $account_type, $id]);
 
-        echo json_encode(['message' => 'User updated successfully']);
+            echo json_encode(['message' => 'User updated successfully', 'user' => $data]);
+        } catch (Exception $e) {
+            echo $e;
+            echo json_encode(['message' => 'Something went wrong.']);
+        }
         break;
     case 'DELETE':
-        //Removes a user
-        $data = json_decode(file_get_contents('php://input'), true);
+        try {
 
-        $id = $data['id'];
+            //Removes a user
+            $data = json_decode(file_get_contents('php://input'), true);
 
-        $stmt = $pdo->prepare('DELETE FROM users WHERE id=?');
-        $stmt->execute([$id]);
+            $id = $data['id'];
 
-        echo json_encode(['message' => 'User deleted successfully']);
+            $stmt = $pdo->prepare('DELETE FROM users WHERE id=?');
+            $stmt->execute([$id]);
+
+            echo json_encode(['message' => 'User deleted successfully']);
+        } catch (Exception $e) {
+            echo $e;
+            echo json_encode(['message' => 'Something went wrong.']);
+        }
         break;
     default:
         //Invalid method
