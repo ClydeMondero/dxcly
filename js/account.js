@@ -1,13 +1,5 @@
 $(document).ready(function () {
-  $("#login-button").click(() => {
-    let email = $("#email").val();
-    let password = $("#password").val();
-
-    let data = JSON.stringify({
-      email: email,
-      password: password,
-    });
-
+  $("#logout-button").click(() => {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
@@ -18,7 +10,7 @@ $(document).ready(function () {
         }
       }
     };
-    xhr.open("POST", "api/auth/", true);
-    xhr.send(data);
+    xhr.open("DELETE", "api/auth/", true);
+    xhr.send();
   });
 });

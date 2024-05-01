@@ -14,7 +14,7 @@
         </div>
         <div class="bottom">
             <div class="left">
-                <span class="logo">DXCLY</span>
+                <span class="logo"><a href="index.php">DXCLY</a></span>
             </div>
             <div class="center">
                 <span>Home
@@ -52,7 +52,7 @@
             <div class="right">
                 <span class="material-symbols-outlined"> search </span>
                 <span class="material-symbols-outlined"> shopping_bag </span>
-                <span class="material-icons">person</span>
+                <span class="material-icons"><a href="utils/redirect.php">person</a></span>
             </div>
         </div>
     </div>
