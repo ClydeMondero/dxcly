@@ -73,7 +73,7 @@ switch ($method) {
             }
         } catch (Exception $e) {
             echo $e;
-            echo json_encode(['message' => 'Logout Failed']);
+            echo json_encode(['message' => 'Logout Failed', 'success' => 'false']);
         }
         break;
 }

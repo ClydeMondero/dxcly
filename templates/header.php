@@ -17,7 +17,7 @@
                 <span class="logo"><a href="index.php">DXCLY</a></span>
             </div>
             <div class="center">
-                <span>Home
+                <span><a href="index.php">Home</a>
                     <hr />
                 </span>
                 <span class="dropdown-container">

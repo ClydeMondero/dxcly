@@ -13,8 +13,22 @@ $(document).ready(function () {
       if (this.readyState == 4 && this.status == 200) {
         let data = JSON.parse(this.responseText);
 
-        if (data.success) {
-          window.location.href = "index.php";
+        if (data.success == true) {
+          toastr.success(data.message, "Success", {
+            timeOut: 2000,
+            preventDuplicates: true,
+            positionClass: "toast-bottom-left",
+            // Redirect
+            onHidden: function () {
+              window.location.href = "index.php";
+            },
+          });
+        } else {
+          toastr.error(data.message, "Failed", {
+            timeOut: 2000,
+            preventDuplicates: true,
+            positionClass: "toast-bottom-left",
+          });
         }
       }
     };
