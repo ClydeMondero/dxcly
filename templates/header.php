@@ -20,8 +20,12 @@
                 <span><a href="index.php">Home</a>
                     <hr />
                 </span>
+                <span>
+                    Techwear
+                    <hr />
+                </span>
                 <span class="dropdown-container">
-                    Techwear Clothing
+                    Clothes
                     <hr />
                     <div class="dropdown">
                         <span>Jackets</span>
