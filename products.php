@@ -23,13 +23,26 @@
         <div class="products-container">
             <div class="products">
                 <h2 id="title"></h2>
-                <div class="search-container">
-                    <input type="text" class="search">
-                    <button class="search-btn">
-                        <span class="material-symbols-outlined"> search </span>
-                        Search
-                    </button>
+                <div class="options">
+                    <div class="search-container">
+                        <input type="text" class="search">
+                        <button class="search-btn">
+                            <span class="material-symbols-outlined"> search </span>
+                            Search
+                        </button>
+                    </div>
+                    <div class="sort-container">
+                        <span>Sort by price: </span>
+                        <select class="sort">
+                            <option value="None" selected>None</option>
+                            <option value="Ascending">Low - High</option>
+                            <option value="Descending">High - Low</option>
+                        </select>
+                    </div>
                 </div>
+                <hr>
+                <h4 class="number-of-products">
+                </h4>
                 <div class="products-collection">
 
                 </div>
