@@ -19,10 +19,16 @@
 }
 
 .products h2 {
-  margin-bottom: 2rem;
   text-transform: uppercase;
   color: var(--gray);
   align-self: center;
+}
+
+.products p {
+  margin-bottom: 2rem;
+  width: 80%;
+  text-align: center;
+  color: var(--light-gray);
 }
 
 .products h4 {
@@ -40,7 +46,7 @@
 }
 
 .search-container {
-  width: 30%;
+  width: 45%;
   display: flex;
   align-items: center;
 }

@@ -23,6 +23,7 @@
         <div class="products-container">
             <div class="products">
                 <h2 id="title"></h2>
+                <p id="description"></p>
                 <div class="options">
                     <div class="search-container">
                         <input type="text" class="search">
