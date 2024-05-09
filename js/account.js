@@ -5,12 +5,14 @@ $(document).ready(function () {
       if (this.readyState == 4 && this.status == 200) {
         let data = JSON.parse(this.responseText);
 
-        if (data.success) {
+        console.log(data);
+
+        if (data.success == "true") {
           window.location.href = "index.php";
         }
       }
     };
-    xhr.open("DELETE", "api/auth/", true);
+    xhr.open("DELETE", "api/auth/logout.php", true);
     xhr.send();
   });
 });

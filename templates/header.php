@@ -21,34 +21,35 @@
                     <hr />
                 </span>
                 <span>
-                    Techwear
+                    <a href="products.php">Techwear</a>
                     <hr />
                 </span>
                 <span class="dropdown-container">
                     Clothes
                     <hr />
                     <div class="dropdown">
-                        <span>Jackets</span>
-                        <span>Hoodies</span>
-                        <span>Vest</span>
-                        <span>Pants</span>
-                        <span>Shirts</span>
-                        <span>Cloaks</span>
-                        <span>Shorts</span>
+                        <span><a href="products.php?type=Jackets">Jackets</a></span>
+                        <span><a href="products.php?type=Hoodies">Hoodies</a></span>
+                        <span><a href="products.php?type=Vest">Vest</a></span>
+                        <span><a href="products.php?type=Pants">Pants</a></span>
+                        <span><a href="products.php?type=Shirts">Shirts</a></span>
+                        <span><a href="products.php?type=Cloaks">Cloaks</a></span>
+                        <span><a href="products.php?type=Shorts">Shorts</a></span>
                     </div>
                 </span>
-                <span>Footwear
+                <span>
+                    <span><a href="products.php?type=Footwear">Footwear</a></span>
                     <hr />
                 </span>
                 <span class="dropdown-container">
                     Accessories
                     <hr />
                     <div class="dropdown">
-                        <span>Hats</span>
-                        <span>Masks</span>
-                        <span>Belts</span>
-                        <span>Gloves</span>
-                        <span>Backpacks</span>
+                        <span><a href="products.php?type=Hats">Hats</a></span>
+                        <span><a href="products.php?type=Masks">Masks</a></span>
+                        <span><a href="products.php?type=Belts">Belts</a></span>
+                        <span><a href="products.php?type=Gloves">Gloves</a></span>
+                        <span><a href="products.php?type=Backpacks">Backpacks</a></span>
                     </div>
                 </span>
             </div>

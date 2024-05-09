@@ -13,7 +13,7 @@ $(document).ready(function () {
       if (this.readyState == 4 && this.status == 200) {
         let data = JSON.parse(this.responseText);
 
-        if (data.success == true) {
+        if (data.success == "true") {
           toastr.success(data.message, "Success", {
             timeOut: 2000,
             preventDuplicates: true,
@@ -32,7 +32,7 @@ $(document).ready(function () {
         }
       }
     };
-    xhr.open("POST", "api/auth/", true);
+    xhr.open("POST", "api/auth/login.php", true);
     xhr.send(data);
   });
 });
