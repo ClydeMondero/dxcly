@@ -22,6 +22,8 @@ $(document).ready(function () {
       "A techwear cloak is a modern, functional outerwear garment influenced by futuristic and cyberpunk aesthetics, often integrating advanced materials and technological features for enhanced adaptability, comfort, and urban utility.",
     shorts:
       "Techwear shorts are a type of clothing that combines the functionality of athletic wear with the style of streetwear. They often feature technical fabrics, such as nylon or spandex, and may have pockets, zippers, and other features that are designed to be functional and durable. Techwear shorts are popular among people who are active and want clothing that can keep up with their lifestyle, as well as those who are interested in fashion and want to make a statement with their clothing.",
+    footwear:
+      "Techwear shoes are a type of technical footwear that are designed to provide protection, functionality, and style. Techwear shoes offer the performance and technical benefits of military footwear with a cutting edge aesthetic. As an essential part of your techwear outfit, techwear shoes are more than ever a useful and fashion accessory, engineered to withstand the toughest conditions while providing you with optimal comfort and original style. In this sense, techwear shoes are no exception to the rule and are made with advanced materials and technical fabrics for enhanced performance.",
     hats: "Our Techwear Hats collection is a must-have for fashion-forward individuals who love to mix style with functionality. This collection features a range of hats that are designed to keep you protected in all weather conditions while still looking stylish and modern.",
     masks:
       "Need extra face protection? The best Techwear masks will take your Techwear clothing style to a new level! Masks occupy a special place in technical clothing, because this fashion concept is directly related to cyberpunk. Techwear masks can also provide protection and comfort in harsh environments.",
@@ -84,6 +86,9 @@ $(document).ready(function () {
         break;
       case "Shorts":
         description.text(descriptions.shorts);
+        break;
+      case "Footwear":
+        description.text(descriptions.footwear);
         break;
       case "Hats":
         description.text(descriptions.hats);
