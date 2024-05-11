@@ -2,6 +2,7 @@ $(document).ready(function () {
   //get url params
   const urlParams = new URLSearchParams(window.location.search);
   const type = urlParams.get("type");
+
   const container = $(".products-collection");
   let products;
 
@@ -142,7 +143,9 @@ $(document).ready(function () {
       let productName = product.name.toLowerCase();
 
       if (productName.includes(searchTerm) || !searchTerm) {
-        let productElement = $("<div>").addClass("product");
+        let productElement = $("<a>")
+          .addClass("product")
+          .attr("href", "product.php?id=" + product.id);
         let productImageElement = $("<img>").attr("src", product.location);
         let productNameElement = $("<h6>").text(product.name);
         let productPriceElement = $("<span>").text(product.price);

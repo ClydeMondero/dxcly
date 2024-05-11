@@ -9,6 +9,34 @@
 </html>
 
 <body>
+    <!-- Services -->
+    <div class="services">
+        <div class="service">
+            <span class="material-icons">
+                local_shipping
+            </span>
+            <h4>FREE SHIPPING</h4>
+        </div>
+        <div class="service">
+            <span class="material-icons">
+                paid
+            </span>
+            <h4>SECURE PAYMENT</h4>
+        </div>
+        <div class="service">
+            <span class="material-icons">
+                thumb_up
+            </span>
+            <h4>EASY RETURNS</h4>
+        </div>
+        <div class="service">
+            <span class="material-icons">
+                verified
+            </span>
+            <h4>7/7 SUPPORT</h4>
+        </div>
+    </div>
+    </div>
 
     <div class="footer">
         <div class="top">

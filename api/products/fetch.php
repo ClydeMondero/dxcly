@@ -6,7 +6,7 @@ header('Content-type: application/json');
 
 try {
     //fetch data from the products table
-    $stmt = $pdo->query('SELECT name, location, price FROM products');
+    $stmt = $pdo->query('SELECT id, name, location, price FROM products');
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     //return the data in JSON format
