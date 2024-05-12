@@ -14,6 +14,12 @@ $(document).ready(function () {
       product = JSON.parse(this.responseText);
 
       displayProduct();
+
+      let cartBtn = $(".cart-btn");
+
+      cartBtn.click(function () {
+        addProductToCart(product.id);
+      });
     }
   };
 
@@ -35,7 +41,7 @@ $(document).ready(function () {
     let price = $("<span>").text("₱" + product.price);
     let quantity = $("<span>").text("Stock: " + product.quantity);
     let description = $("<p>").text(product.description);
-    let cartBtn = $("<button>").text("Add to cart");
+    let cartBtn = $("<button>").addClass("cart-btn").text("Add to cart");
 
     links.append([all, type]);
 
@@ -45,5 +51,47 @@ $(document).ready(function () {
 
     container.append(image);
     container.append(details);
+  }
+
+  function addProductToCart(productId) {
+    //checks if user is logged in or not
+    let userReq = new XMLHttpRequest();
+
+    userReq.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let userData = JSON.parse(this.responseText);
+
+        if (userData.loggedIn == "false") {
+          window.location.href = "login.php";
+          return;
+        }
+
+        if (userData.loggedIn == "true") {
+          let payload = JSON.stringify({
+            userId: userData.id,
+            productId: productId,
+          });
+
+          let orderReq = new XMLHttpRequest();
+
+          orderReq.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              let cartData = JSON.parse(this.responseText);
+              toastr.success(cartData.message, "Success", {
+                timeOut: 2000,
+                preventDuplicates: true,
+                positionClass: "toast-bottom-left",
+              });
+            }
+          };
+
+          orderReq.open("POST", "api/orders/add.php", true);
+          orderReq.send(payload);
+        }
+      }
+    };
+
+    userReq.open("GET", "utils/check_user.php", true);
+    userReq.send();
   }
 });

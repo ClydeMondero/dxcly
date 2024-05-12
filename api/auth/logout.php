@@ -7,11 +7,10 @@ header('Content-type: application/json');
 try {
     session_start();
 
-    if (isset($_SESSION['username']) && isset($_SESSION['logged_in'])) {
+    if (isset($_SESSION['id']) && isset($_SESSION['logged_in'])) {
 
         $_SESSION['logged_in'] = false;
-        $user = $_SESSION['username'];
-        $_SESSION['username'] = '';
+        $_SESSION['id'] = '';
 
         echo json_encode(['message' => 'Logout Successful', 'success' => 'true']);
     } else {

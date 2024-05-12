@@ -56,8 +56,30 @@
 
             <div class="right">
                 <span class="material-symbols-outlined"> search </span>
-                <span class="material-symbols-outlined"> shopping_bag </span>
+                <span id="cart-btn" class="material-symbols-outlined"> shopping_bag </span>
                 <span class="material-icons"><a href="utils/redirect.php">person</a></span>
+            </div>
+
+            <!-- Cart -->
+            <div class="cart-container">
+                <div class="cart">
+                    <div class="cart-top">
+                        <h2>Cart</h3>
+                            <span id="close-btn" class="material-symbols-outlined"> close </span>
+                    </div>
+                    <hr>
+                    <div class="orders">
+                        <span class="cart-empty">Your cart is currently empty</span>
+                    </div>
+                    <hr>
+                    <div class="cart-bottom">
+                        <div class="total-container">
+                            <span>SubTotal</span>
+                            <span>₱1000.00</span>
+                        </div>
+                        <button id="checkout-btn">Checkout</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

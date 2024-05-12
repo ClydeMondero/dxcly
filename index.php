@@ -94,9 +94,6 @@
       </div>
     </div>
 
-
-
-
     <?php include  "templates/footer.php"; ?>
 
     <script src="js/index.js"></script>
