@@ -52,33 +52,41 @@ $(document).ready(function () {
 
   //cart
   $("#cart-btn").click(function () {
-    $(".cart-container").toggleClass("open");
-    $(".cart").toggleClass("open");
-    $("body").css("overflow", "hidden");
-
     let userReq = new XMLHttpRequest();
 
     userReq.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         let ordersReq = new XMLHttpRequest();
 
-        let data = JSON.parse(this.responseText);
+        let userData = JSON.parse(this.responseText);
 
-        ordersReq.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-            let orders = JSON.parse(this.responseText);
+        if (userData.loggedIn == "false") {
+          toastr.warning("You need to login first.", "Warning", {
+            timeOut: 2000,
+            preventDuplicates: true,
+            positionClass: "toast-bottom-left",
+            // Redirect
+            onHidden: function () {
+              window.location.href = "login.php";
+            },
+          });
+        } else {
+          $(".cart-container").toggleClass("open");
+          $(".cart").toggleClass("open");
+          $("body").css("overflow", "hidden");
 
-            displayOrders(orders);
-          }
-        };
+          ordersReq.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              let orders = JSON.parse(this.responseText);
 
-        if (data.loggedIn == "false") {
-          window.location.href = "login.php";
+              displayOrders(orders, userData);
+            }
+          };
+
+          ordersReq.open("POST", "api/orders/fetch.php", true);
+          userData = JSON.stringify(userData);
+          ordersReq.send(userData);
         }
-
-        ordersReq.open("POST", "api/orders/fetch.php", true);
-        data = JSON.stringify(data);
-        ordersReq.send(data);
       }
     };
 
@@ -92,7 +100,7 @@ $(document).ready(function () {
     $("body").css("overflow", "scroll");
   });
 
-  function displayOrders(orders) {
+  function displayOrders(orders, user) {
     if (orders.length == 0) {
       $(".cart-empty").show();
       return;
@@ -101,6 +109,8 @@ $(document).ready(function () {
     let container = $(".orders");
 
     container.empty();
+
+    let subTotal = 0;
 
     $.each(orders, function (index, order) {
       const productId = JSON.stringify({ id: order.product_id });
@@ -112,13 +122,21 @@ $(document).ready(function () {
         if (this.readyState == 4 && this.status == 200) {
           let product = JSON.parse(this.responseText);
 
-          let orderElement = $("<a>")
-            .addClass("order")
+          let orderElement = $("<div>").addClass("order");
+
+          let checkbox = $("<input>")
+            .attr({ type: "checkbox", id: "selected-order" })
+            .prop("checked", true);
+
+          let imageContainer = $("<a>")
+            .addClass("image-container")
             .attr("href", "product.php?id=" + product.id);
+
           let orderImage = $("<img>").attr("src", product.location);
 
           let orderDetails = $("<div>").addClass("order-details");
           let orderName = $("<h4>").text(product.name);
+
           let orderPrice = $("<span>").text(
             "₱ " + product.price.toLocaleString("en-US")
           );
@@ -126,11 +144,18 @@ $(document).ready(function () {
           let quantityContainer = $("<div>").addClass("quantity-container");
           let decreaseQuantity = $("<button>")
             .attr("id", "decrease-quantity")
-            .text("-");
+            .text("-")
+            .click(() => {
+              updateQuantity("decrease", order, user);
+            });
           let orderQuantity = $("<span>").text(order.order_quantity);
           let increaseQuantity = $("<button>")
             .attr("id", "increase-quantity")
-            .text("+");
+            .text("+")
+            .click(() => {
+              updateQuantity("increase", order, user);
+            });
+          imageContainer.append(orderImage);
 
           quantityContainer.append([
             decreaseQuantity,
@@ -140,15 +165,70 @@ $(document).ready(function () {
 
           orderDetails.append([orderName, orderPrice, quantityContainer]);
 
-          orderElement.append([orderImage, orderDetails]);
+          orderElement.append([checkbox, imageContainer, orderDetails]);
           container.append(orderElement);
 
-          //TODO:Increase and decrease quantity
+          let total = 0;
+          total = product.price * order.order_quantity;
+
+          if (checkbox.prop("checked")) {
+            subTotal += total;
+            $("#total").text("₱ " + subTotal.toLocaleString("en-US"));
+          }
+
+          checkbox.on("change", function () {
+            if ($(this).prop("checked")) {
+              subTotal += total;
+              $("#total").text("₱ " + subTotal.toLocaleString("en-US"));
+            } else {
+              subTotal -= total;
+              $("#total").text("₱ " + subTotal.toLocaleString("en-US"));
+            }
+          });
         }
       };
 
-      productReq.open("POST", "api/products/fetch_id.php", true);
+      productReq.open("POST", "api/products/fetch_id.php", false);
       productReq.send(productId);
     });
+  }
+
+  function updateQuantity(operation, order, user) {
+    let updateData = JSON.stringify({
+      operation: operation,
+      order_id: order.order_id,
+      order_quantity: order.order_quantity,
+    });
+
+    let updateReq = new XMLHttpRequest();
+
+    updateReq.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let newQuantity = JSON.parse(this.responseText).quantity;
+
+        if (newQuantity == 0) {
+          let removeReq = new XMLHttpRequest();
+
+          removeReq.open("DELETE", "api/orders/remove.php", true);
+          removeReq.send(JSON.stringify({ id: order.order_id }));
+        }
+
+        let ordersReq = new XMLHttpRequest();
+
+        ordersReq.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            let orders = JSON.parse(this.responseText);
+
+            displayOrders(orders, user);
+          }
+        };
+
+        ordersReq.open("POST", "api/orders/fetch.php", true);
+        ordersReq.send(user);
+      }
+    };
+
+    updateReq.open("POST", "api/orders/update.php", true);
+    updateReq.send(updateData);
   }
 });

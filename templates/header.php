@@ -75,7 +75,7 @@
                     <div class="cart-bottom">
                         <div class="total-container">
                             <span>SubTotal</span>
-                            <span>₱1000.00</span>
+                            <span id="total">₱0.00</span>
                         </div>
                         <button id="checkout-btn">Checkout</button>
                     </div>

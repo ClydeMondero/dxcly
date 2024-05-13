@@ -15,7 +15,7 @@ $(document).ready(function () {
 
       displayProduct();
 
-      let cartBtn = $(".cart-btn");
+      let cartBtn = $(".add-btn");
 
       cartBtn.click(function () {
         addProductToCart(product.id);
@@ -41,7 +41,7 @@ $(document).ready(function () {
     let price = $("<span>").text("₱" + product.price);
     let quantity = $("<span>").text("Stock: " + product.quantity);
     let description = $("<p>").text(product.description);
-    let cartBtn = $("<button>").addClass("cart-btn").text("Add to cart");
+    let cartBtn = $("<button>").addClass("add-btn").text("Add to cart");
 
     links.append([all, type]);
 
@@ -61,32 +61,70 @@ $(document).ready(function () {
       if (this.readyState == 4 && this.status == 200) {
         let userData = JSON.parse(this.responseText);
 
+        console.log(userData);
+
         if (userData.loggedIn == "false") {
-          window.location.href = "login.php";
+          toastr.warning("You need to login first.", "Warning", {
+            timeOut: 2000,
+            preventDuplicates: true,
+            positionClass: "toast-bottom-left",
+            // Redirect
+            onHidden: function () {
+              window.location.href = "login.php";
+            },
+          });
           return;
         }
 
         if (userData.loggedIn == "true") {
-          let payload = JSON.stringify({
-            userId: userData.id,
-            productId: productId,
-          });
+          let fetchOrdersData = JSON.stringify(userData);
 
-          let orderReq = new XMLHttpRequest();
-
-          orderReq.onreadystatechange = function () {
+          let fetchOrdersReq = new XMLHttpRequest();
+          fetchOrdersReq.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-              let cartData = JSON.parse(this.responseText);
-              toastr.success(cartData.message, "Success", {
-                timeOut: 2000,
-                preventDuplicates: true,
-                positionClass: "toast-bottom-left",
+              orders = JSON.parse(this.responseText);
+
+              let orderExists = false;
+
+              orders.forEach((order) => {
+                if (order.product_id == productId) {
+                  toastr.error("Product already in cart", "Error", {
+                    timeOut: 2000,
+                    preventDuplicates: true,
+                    positionClass: "toast-bottom-left",
+                  });
+
+                  orderExists = true;
+                }
               });
+
+              if (!orderExists) {
+                let orderData = JSON.stringify({
+                  userId: userData.id,
+                  productId: productId,
+                });
+
+                let addOrderReq = new XMLHttpRequest();
+
+                addOrderReq.onreadystatechange = function () {
+                  if (this.readyState == 4 && this.status == 200) {
+                    let cartData = JSON.parse(this.responseText);
+                    toastr.success(cartData.message, "Success", {
+                      timeOut: 2000,
+                      preventDuplicates: true,
+                      positionClass: "toast-bottom-left",
+                    });
+                  }
+                };
+
+                addOrderReq.open("POST", "api/orders/add.php", true);
+                addOrderReq.send(orderData);
+              }
             }
           };
 
-          orderReq.open("POST", "api/orders/add.php", true);
-          orderReq.send(payload);
+          fetchOrdersReq.open("POST", "api/orders/fetch.php", true);
+          fetchOrdersReq.send(fetchOrdersData);
         }
       }
     };

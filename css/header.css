@@ -167,6 +167,11 @@
   gap: 0.8rem;
 }
 
+.order input[type="checkbox"] {
+  align-self: center;
+  accent-color: var(--dark);
+}
+
 .order img {
   width: 100px;
   height: 125px;

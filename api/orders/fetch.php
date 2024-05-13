@@ -9,7 +9,7 @@ try {
     $userId = $data['id'];
 
     //fetch data from the products table
-    $stmt = $pdo->prepare('SELECT product_id, order_quantity FROM orders WHERE user_id = ?');
+    $stmt = $pdo->prepare('SELECT * FROM orders WHERE user_id = ? ORDER BY order_id ASC');
     $stmt->execute([$userId]);
     $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
