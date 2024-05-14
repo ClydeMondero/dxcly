@@ -74,6 +74,14 @@
   vertical-align: middle;
 }
 
+.parallax {
+  margin-top: 2rem;
+  height: 400px;
+  background-image: url(../assets/parallax.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+}
+
 .essentials {
   padding: var(--medium-padding);
   display: flex;

@@ -66,6 +66,9 @@
       </a>
     </div>
 
+    <!-- Parallax Image -->
+    <div class="parallax"></div>
+
     <!-- Essentials-->
     <div class="essentials">
       <span>Techware Essentials</span>

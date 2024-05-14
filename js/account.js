@@ -28,6 +28,8 @@ $(document).ready(function () {
 
   $("#update-btn").click(function () {});
   uploadPicture();
+
+  //TODO: update user data
 });
 
 function uploadPicture() {
