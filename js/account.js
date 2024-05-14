@@ -25,7 +25,29 @@ $(document).ready(function () {
       $("#pfp-preview").attr("src", URL.createObjectURL(file));
     }
   });
+
+  $("#update-btn").click(function () {});
+  uploadPicture();
 });
+
+function uploadPicture() {
+  let picture = $("#pfp-input").prop("files")[0];
+
+  let pictureData = new FormData();
+  pictureData.append("picture", picture);
+
+  let uploadReq = new XMLHttpRequest();
+
+  uploadReq.open("POST", "utils/upload_image.php", true);
+
+  uploadReq.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.response);
+    }
+  };
+
+  uploadReq.send(pictureData);
+}
 
 function displayUserData() {
   let checkUserReq = new XMLHttpRequest();
