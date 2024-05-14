@@ -50,6 +50,25 @@ $(document).ready(function () {
     }
   }, 4000); // 3 seconds interval
 
+  //pfp and username logic
+  let userReq = new XMLHttpRequest();
+
+  userReq.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let userData = JSON.parse(this.responseText);
+
+      console.log(userData);
+
+      if (userData.loggedIn == "true") {
+        $("#username").show().text(userData.username);
+        $("#profile-picture").attr("src", userData.profilePicture);
+      }
+    }
+  };
+
+  userReq.open("GET", "utils/check_user.php", true);
+  userReq.send();
+
   //cart
   $("#cart-btn").click(function () {
     let userReq = new XMLHttpRequest();
@@ -90,7 +109,7 @@ $(document).ready(function () {
       }
     };
 
-    userReq.open("POST", "utils/check_user.php", true);
+    userReq.open("GET", "utils/check_user.php", true);
     userReq.send();
   });
 
@@ -231,4 +250,6 @@ $(document).ready(function () {
     updateReq.open("POST", "api/orders/update.php", true);
     updateReq.send(updateData);
   }
+
+  //TODO: display username and pfp
 });

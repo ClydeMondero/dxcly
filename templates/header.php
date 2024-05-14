@@ -57,7 +57,10 @@
             <div class="right">
                 <span class="material-symbols-outlined"> search </span>
                 <span id="cart-btn" class="material-symbols-outlined"> shopping_bag </span>
-                <span class="material-icons"><a href="utils/redirect.php">person</a></span>
+                <a class="pfp" href="utils/redirect.php">
+                    <img id="profile-picture" src="assets/default-pfp.png" alt="">
+                    <span id="username">Username</span>
+                </a>
             </div>
 
             <!-- Cart -->

@@ -58,6 +58,23 @@
   cursor: pointer;
 }
 
+.bottom .right .pfp {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+#profile-picture {
+  width: 25px;
+  height: 25px;
+}
+
+#username {
+  display: none;
+  font-size: 1rem;
+  text-transform: none;
+}
+
 .center {
   cursor: pointer;
   display: flex;
