@@ -37,55 +37,44 @@
   color: var(--light-gray);
 }
 
-.gender {
+.types {
   margin-top: 2rem;
   padding: var(--medium-padding);
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
+  gap: 2rem;
 }
 
-.gender button {
-  border: none;
-  padding: 1rem 2rem;
+.type {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.type img {
+  width: 325px;
+  height: 380px;
+  transition: all 0.3s ease-in;
+}
+
+.type:hover > img {
+  transform: scale(1.1);
+}
+
+.type span {
+  background-color: var(--dark-gray);
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 1rem;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-weight: 600;
-}
-
-.female {
-  position: relative;
-  width: 50%;
-}
-
-.female img {
-  width: 100%;
-}
-
-.female button {
-  background-color: var(--dark);
-  color: #fff;
-}
-
-.male button {
-  background-color: #fff;
-  color: var(--dark);
-}
-
-.male {
-  position: relative;
-  width: 50%;
-}
-
-.male img {
-  width: 100%;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .essentials {
-  margin-top: 2rem;
   padding: var(--medium-padding);
   display: flex;
   flex-direction: column;

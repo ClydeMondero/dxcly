@@ -38,22 +38,37 @@
       </div>
     </div>
 
-    <!-- Gender -->
-    <div class="gender">
-      <div class="female">
-        <img src="assets/women.jpg" alt="" />
-        <button>All Women's</button>
-      </div>
-      <div class="male">
-        <img src="assets/men.jpg" alt="" />
-        <button>All Mens's</button>
-      </div>
+    <!-- Types -->
+    <div class="types">
+      <a href="products.php?type=Hoodies">
+        <div class="type">
+          <img src="assets/hoodies-type.jpg" alt="" />
+          <span>Hoodie</span>
+        </div>
+      </a>
+      <a href="products.php?type=Jackets">
+        <div class="type">
+          <img src="assets/jackets-type.jpg" alt="" />
+          <span>Jackets</span>
+        </div>
+      </a>
+      <a href="products.php?type=Pants">
+        <div class="type">
+          <img src="assets/Pants-type.jpg" alt="" />
+          <span>Pants</span>
+        </div>
+      </a>
+      <a href="products.php?type=Footwear">
+        <div class="type">
+          <img src="assets/shoes-type.jpg" alt="" />
+          <span>Footwear</span>
+        </div>
+      </a>
     </div>
 
     <!-- Essentials-->
     <div class="essentials">
       <span>Techware Essentials</span>
-      <button>View Essentials</button>
       <div class="essentials-products"></div>
     </div>
 
