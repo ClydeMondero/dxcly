@@ -37,7 +37,7 @@
   color: var(--light-gray);
 }
 
-a {
+.product a {
   color: var(--light-gray);
   cursor: pointer;
 }

@@ -8,27 +8,33 @@
                 <xsl:attribute name="style"> display: flex; align-items: center; gap: 1rem; padding:
         1rem 8.5rem; justify-content:center; font-family: Arial, Helvetica, sans-serif;</xsl:attribute>
                 <xsl:for-each select="Products/Product">
-                    <div class="product">
-                        <xsl:attribute name="style">display: flex; flex-direction: column;
+                    <a>
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="Link" />
+                        </xsl:attribute>
+                        <div class="product">
+                            <xsl:attribute name="style">display: flex; flex-direction: column;
         align-items: center; gap: 1rem;</xsl:attribute>
-                        <img src="{Location}" alt="{Name}" width="275px"
-                            height="350px" />
-                        <div class="product-details">
-                            <span>
-                                <xsl:attribute name="style">text-transform: uppercase; font-weight:
-        600; font-size: 1rem;</xsl:attribute>
-                                <xsl:value-of select="Name" />
-                            </span>
-                            <br />
-                            <br />
-                            <span>
-                                <xsl:attribute name="style"> font-size: 0.8rem;</xsl:attribute>
-                                <xsl:value-of
-                                    select="Price" />
-                            </span>
+                            <img src="{Location}" alt="{Name}" width="275px"
+                                height="350px" />
+                            <div class="product-details">
+                                <span>
+                                    <xsl:attribute name="style">text-transform: uppercase;
+        font-weight: 600; font-size: 1rem;</xsl:attribute>
+                                    <xsl:value-of select="Name" />
+                                </span>
+                                <br />
+                                <br />
+                                <span>
+                                    <xsl:attribute name="style"> font-size: 0.8rem;</xsl:attribute>
+                                    <xsl:value-of
+                                        select="Price" />
+                                </span>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </xsl:for-each>
+
             </div>
         </html>
     </xsl:template>
