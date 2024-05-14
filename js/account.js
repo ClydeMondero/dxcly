@@ -15,4 +15,15 @@ $(document).ready(function () {
     xhr.open("DELETE", "api/auth/logout.php", true);
     xhr.send();
   });
+
+  $("#pfp-input").on("change", function () {
+    const [file] = $(this).prop("files");
+
+    if (file) {
+      $("#pfp-preview").attr("src", URL.createObjectURL(file));
+    }
+  });
+
+  //TODO: Fetch user data and display it
+  //TODO: Save user data
 });
