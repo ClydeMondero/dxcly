@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function (e) {
   $("#logout-button").click(() => {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
@@ -26,30 +26,50 @@ $(document).ready(function () {
     }
   });
 
-  $("#update-btn").click(function () {});
-  uploadPicture();
+  $("#update-btn").click(function () {
+    const [file] = $("#pfp-input").prop("files");
 
-  //TODO: update user data
+    let updateData = JSON.stringify({
+      name: $("#name").val(),
+      username: $(".details #username").val(),
+      email: $("#email").val(),
+      contact: $("#contact").val(),
+      address: $("#address").val(),
+      method: $("#method").val(),
+      location: file ? "assets/" + file.name : userData.profile_picture,
+    });
+
+    let updateReq = new XMLHttpRequest();
+
+    updateReq.open("UPDATE", "api/users/update.php", true);
+    updateReq.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let updateRes = JSON.parse(this.responseText);
+
+        if (updateRes.success == "true") {
+          toastr.success(updateRes.message, "Success", {
+            timeOut: 2000,
+            preventDuplicates: true,
+            positionClass: "toast-bottom-left",
+            onHidden: uploadPicture,
+          });
+        }
+      }
+    };
+    updateReq.send(updateData);
+  });
 });
 
 function uploadPicture() {
   let picture = $("#pfp-input").prop("files")[0];
-
   let pictureData = new FormData();
   pictureData.append("picture", picture);
-
   let uploadReq = new XMLHttpRequest();
-
   uploadReq.open("POST", "utils/upload_image.php", true);
-
-  uploadReq.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.response);
-    }
-  };
-
   uploadReq.send(pictureData);
 }
+
+let userData;
 
 function displayUserData() {
   let checkUserReq = new XMLHttpRequest();
@@ -63,7 +83,7 @@ function displayUserData() {
 
         fetchUserReq.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
-            let userData = JSON.parse(this.responseText);
+            userData = JSON.parse(this.responseText);
 
             $("#name").attr("value", userData.full_name);
             $(".detail #username").attr("value", userData.username);
