@@ -51,23 +51,32 @@ $(document).ready(function () {
   }, 4000); // 3 seconds interval
 
   //pfp and username logic
-  let userReq = new XMLHttpRequest();
+  let checkUserReq = new XMLHttpRequest();
 
-  userReq.onreadystatechange = function () {
+  checkUserReq.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      let userData = JSON.parse(this.responseText);
+      let userAuthData = JSON.parse(this.responseText);
 
-      console.log(userData);
+      if (userAuthData.loggedIn == "true") {
+        let fetchUserReq = new XMLHttpRequest();
 
-      if (userData.loggedIn == "true") {
-        $("#username").show().text(userData.username);
-        $("#profile-picture").attr("src", userData.profilePicture);
+        fetchUserReq.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            let userData = JSON.parse(this.responseText);
+
+            $(".pfp #username").show().text(userData.username);
+            $("#profile-picture").attr("src", userData.profilePicture);
+          }
+        };
+
+        fetchUserReq.open("POST", "api/users/fetch_id.php", true);
+        fetchUserReq.send(JSON.stringify(userAuthData));
       }
     }
   };
 
-  userReq.open("GET", "utils/check_user.php", true);
-  userReq.send();
+  checkUserReq.open("GET", "utils/check_user.php", true);
+  checkUserReq.send();
 
   //cart
   $("#cart-btn").click(function () {
@@ -250,6 +259,4 @@ $(document).ready(function () {
     updateReq.open("POST", "api/orders/update.php", true);
     updateReq.send(updateData);
   }
-
-  //TODO: display username and pfp
 });

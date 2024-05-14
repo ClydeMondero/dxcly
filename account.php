@@ -38,28 +38,28 @@
                             <div class="details">
                                 <div class="detail">
                                     <span class="label">Name</span>
-                                    <input type=text" id="name" value="Clyde Mondero" />
+                                    <input type=text" id="name" />
                                 </div>
                                 <div class="detail">
                                     <span class="label">Username</span>
-                                    <input type="text" id="username" value="clyde" />
+                                    <input type="text" id="username" />
                                 </div>
                                 <div class="detail">
                                     <span class="label">Email</span>
-                                    <input type="email" id="email" value="clyde@gmail.com" />
+                                    <input type="email" id="email" />
                                 </div>
                                 <div class="detail">
                                     <span class="label">Contact Number</span>
-                                    <input type="phone" id="contact" value="09565317151" />
+                                    <input type="phone" id="contact" />
                                 </div>
                                 <div class="detail">
                                     <span class="label">Address</span>
-                                    <input type="address" id="address" value="Baliuag, Bulacan" />
+                                    <input type="address" id="address" />
                                 </div>
                                 <div class="detail">
                                     <span class="label">Default Payment Method</span>
                                     <select id="method">
-                                        <option value="Cash On Delivery">Cash On Delivery</option>
+                                        <option value="Cash on Delivery">Cash on Delivery</option>
                                         <option value="GCash">GCash</option>
                                         <option value="Maya">Maya</option>
                                         <option value="Card">Card</option>
@@ -67,7 +67,7 @@
                                 </div>
                             </div>
                             <div class="display-picture">
-                                <img src="assets/default-pfp.png" id="pfp-preview">
+                                <img id="pfp-preview">
                                 <label for="pfp-input">Choose File</label>
                                 <input type="file" id="pfp-input" accept="image/*">
                             </div>
