@@ -11,12 +11,11 @@ try {
     foreach ($selectedCarts as $cart_id) {
         $stmt = $pdo->prepare('
             UPDATE carts
-            SET status = ?, ordered_date = ? 
+            SET status = ?, ordered_date = NOW()
             WHERE cart_id = ?
         ');
         $stmt->execute([
-            'Pending',
-            date('Y-m-d H:i:s'),
+            'To Pay',
             $cart_id
         ]);
     }

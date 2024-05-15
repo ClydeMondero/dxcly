@@ -91,15 +91,76 @@ function displayOrders(orders) {
         let orderTotal = $("<span>")
           .text("Total: ₱ " + total.toLocaleString("en-US"))
           .addClass("total");
-        let orderStatus = $("<span>").text(order.status).addClass("status");
 
         let pricesContainer = $("<div>").addClass("prices");
 
+        let optionsContainer = $("<div>").addClass("options");
+
+        let orderDate = $("<span>")
+          .text("Ordered on: " + formatDate(order.ordered_date))
+          .addClass("date");
+
+        let deliveredDate = $("<span>")
+          .text("To Receive at: " + formatDate(order.received_date))
+          .addClass("date");
+
+        order.status == "To Pay" ? deliveredDate.hide() : deliveredDate.show();
+
+        let orderStatus = $("<span>").text(order.status).addClass("status");
+
+        let orderBtn = $("<button>").addClass("order-btn");
+
+        let nameContainer = $("<div>").addClass("name-container");
+
+        switch (order.status) {
+          case "To Pay":
+            orderBtn.text("Pay");
+            orderBtn.click(() => {
+              $(".payment-modal").css("display", "flex");
+              $("body").css("overflow", "hidden");
+
+              if ($(".payment-modal").css("display") == "flex") {
+                setTimeout(() => {
+                  let paymentReq = new XMLHttpRequest();
+
+                  paymentReq.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                      console.log(this.response);
+                      let paymentRes = JSON.parse(this.responseText);
+
+                      if (paymentRes) {
+                        toastr.success(paymentRes.message, "Success", {
+                          timeOut: 2000,
+                          preventDuplicates: true,
+                          positionClass: "toast-bottom-left",
+                          onHidden: () => {
+                            $(".payment-modal").css("display", "none");
+                          },
+                        });
+                      }
+                    }
+                  };
+
+                  paymentReq.open("POST", "api/carts/pay.php", true);
+                  paymentReq.send(JSON.stringify({ id: order.cart_id }));
+                }, 1000);
+
+                $(".payment-modal #close-btn").click(() => {
+                  $(".payment-modal").css("display", "none");
+                });
+              }
+            });
+        }
+
         imageContainer.append([orderImage]);
+
+        nameContainer.append([orderName, orderStatus]);
 
         pricesContainer.append([orderPrice, orderQuantity, orderTotal]);
 
-        orderDetails.append([orderName, pricesContainer, orderStatus]);
+        optionsContainer.append([orderDate, deliveredDate, orderBtn]);
+
+        orderDetails.append([nameContainer, pricesContainer, optionsContainer]);
 
         orderElement.append([imageContainer, orderDetails]);
 
@@ -206,8 +267,8 @@ function updateMethodPreview(method) {
     $("#method-preview").attr("src", "assets/gcash.png");
   } else if (method == "Maya") {
     $("#method-preview").attr("src", "assets/maya.png");
-  } else {
-    $("#method-preview").hide();
+  } else if (method == "Card") {
+    $("#method-preview").attr("src", "assets/mastercard.png");
   }
 }
 
@@ -226,4 +287,12 @@ function logoutHandler() {
     xhr.open("DELETE", "api/auth/logout.php", true);
     xhr.send();
   });
+}
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffTime = Math.abs(now - date);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays <= 1 ? "Today" : diffDays + " days ago";
 }

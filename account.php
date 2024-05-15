@@ -60,12 +60,10 @@
                                     <input type="address" id="address" />
                                 </div>
                                 <div class="method-container">
-                                    <span class="label">Default Payment Method</span>
+                                    <span class="label">Payment Method</span>
                                     <div class="methods">
                                         <img src="assets/gcash.png" alt="" id="method-preview">
                                         <select id="method">
-                                            <option value="Cash on Delivery">
-                                                Cash on Delivery
                                             </option>
                                             <option value="GCash">GCash</option>
                                             <option value="Maya">Maya</option>
@@ -86,6 +84,16 @@
             </div>
         </div>
     </div>
+
+    <!-- Pay Modal -->
+    <div class="payment-modal">
+        <div class="modal-container">
+            <span id="close-btn" class="material-symbols-outlined"> close </span>
+            <img src="assets/qr.png" alt="">
+            <span>Scan QR Code to Pay</span>
+        </div>
+    </div>
+
     </div>
 
     <?php include  "templates/footer.php"; ?>
