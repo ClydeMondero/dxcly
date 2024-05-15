@@ -97,11 +97,11 @@ function displayOrders(orders) {
         let optionsContainer = $("<div>").addClass("options");
 
         let orderDate = $("<span>")
-          .text("Ordered on: " + formatDate(order.ordered_date))
+          .text("Ordered on: " + moment(order.ordered_date).fromNow())
           .addClass("date");
 
         let deliveredDate = $("<span>")
-          .text("To Receive at: " + formatDate(order.received_date))
+          .text("To Receive at: " + moment(order.received_date).fromNow())
           .addClass("date");
 
         order.status == "To Pay" ? deliveredDate.hide() : deliveredDate.show();
@@ -135,6 +135,7 @@ function displayOrders(orders) {
                           positionClass: "toast-bottom-left",
                           onHidden: () => {
                             $(".payment-modal").css("display", "none");
+                            window.location.href = "account.php";
                           },
                         });
                       }
@@ -143,7 +144,7 @@ function displayOrders(orders) {
 
                   paymentReq.open("POST", "api/carts/pay.php", true);
                   paymentReq.send(JSON.stringify({ id: order.cart_id }));
-                }, 1000);
+                }, 5000);
 
                 $(".payment-modal #close-btn").click(() => {
                   $(".payment-modal").css("display", "none");
@@ -287,12 +288,4 @@ function logoutHandler() {
     xhr.open("DELETE", "api/auth/logout.php", true);
     xhr.send();
   });
-}
-
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const now = new Date();
-  const diffTime = Math.abs(now - date);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  return diffDays <= 1 ? "Today" : diffDays + " days ago";
 }
