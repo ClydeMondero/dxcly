@@ -9,7 +9,7 @@ try {
     $userId = $data['id'];
 
     //fetch data from the orders table
-    $stmt = $pdo->prepare('SELECT * FROM carts WHERE user_id = ? ORDER BY cart_id ASC');
+    $stmt = $pdo->prepare('SELECT * FROM carts WHERE user_id = ? AND status = "In Cart" ORDER BY cart_id ASC');
     $stmt->execute([$userId]);
     $carts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

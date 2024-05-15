@@ -72,7 +72,6 @@
                     </div>
                     <hr>
                     <div class="carts">
-                        <span class="cart-empty">Your cart is currently empty</span>
                     </div>
                     <hr>
                     <div class="cart-bottom">

@@ -3,18 +3,17 @@ $(document).ready(function () {
     let email = $("#email").val();
     let password = $("#password").val();
 
-    let data = JSON.stringify({
+    let loginData = JSON.stringify({
       email: email,
       password: password,
     });
 
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
+    var loginReq = new XMLHttpRequest();
+    loginReq.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        let data = JSON.parse(this.responseText);
-
-        if (data.success == "true") {
-          toastr.success(data.message, "Success", {
+        let loginRes = JSON.parse(this.responseText);
+        if (loginRes.success == "true") {
+          toastr.success(loginRes.message, "Success", {
             timeOut: 2000,
             preventDuplicates: true,
             positionClass: "toast-bottom-left",
@@ -24,7 +23,7 @@ $(document).ready(function () {
             },
           });
         } else {
-          toastr.error(data.message, "Failed", {
+          toastr.error(loginRes.message, "Failed", {
             timeOut: 2000,
             preventDuplicates: true,
             positionClass: "toast-bottom-left",
@@ -32,7 +31,7 @@ $(document).ready(function () {
         }
       }
     };
-    xhr.open("POST", "api/auth/login.php", true);
-    xhr.send(data);
+    loginReq.open("POST", "api/auth/login.php", true);
+    loginReq.send(loginData);
   });
 });

@@ -237,7 +237,6 @@
 
 .cart-empty {
   align-self: center;
-  display: none;
   font-weight: 200;
   font-size: 0.8rem;
   color: #000;
@@ -272,4 +271,9 @@
   outline: 1px solid #000;
   box-shadow: inset 800px 0 0 0 #fff;
   color: black;
+}
+
+.no-hover {
+  pointer-events: none;
+  opacity: 0.5;
 }

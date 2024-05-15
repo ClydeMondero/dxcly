@@ -1,22 +1,10 @@
 $(document).ready(function (e) {
-  $("#logout-button").click(() => {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        let data = JSON.parse(this.responseText);
-
-        console.log(data);
-
-        if (data.success == "true") {
-          window.location.href = "index.php";
-        }
-      }
-    };
-    xhr.open("DELETE", "api/auth/logout.php", true);
-    xhr.send();
-  });
+  logoutHandler();
 
   displayUserData();
+
+  //TODO: display orders
+  //TODO: randomize order status
 
   $("#pfp-input").on("change", function () {
     const [file] = $(this).prop("files");
@@ -122,4 +110,21 @@ function updateMethodPreview(method) {
   } else {
     $("#method-preview").hide();
   }
+}
+
+function logoutHandler() {
+  $("#logout-button").click(() => {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let data = JSON.parse(this.responseText);
+
+        if (data.success == "true") {
+          window.location.href = "index.php";
+        }
+      }
+    };
+    xhr.open("DELETE", "api/auth/logout.php", true);
+    xhr.send();
+  });
 }
