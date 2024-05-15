@@ -91,6 +91,13 @@ function displayUserData() {
             $("#contact").attr("value", userData.contact_number);
             $("#address").attr("value", userData.address);
             $("#method").val(userData.payment_method);
+
+            $("#method").on("change", function () {
+              updateMethodPreview($(this).val());
+            });
+
+            updateMethodPreview(userData.payment_method);
+
             $("#pfp-preview").attr("src", userData.profile_picture);
           }
         };
@@ -103,4 +110,16 @@ function displayUserData() {
 
   checkUserReq.open("GET", "utils/check_user.php", true);
   checkUserReq.send();
+}
+
+function updateMethodPreview(method) {
+  $("#method-preview").show();
+
+  if (method == "GCash") {
+    $("#method-preview").attr("src", "assets/gcash.png");
+  } else if (method == "Maya") {
+    $("#method-preview").attr("src", "assets/maya.png");
+  } else {
+    $("#method-preview").hide();
+  }
 }

@@ -58,14 +58,19 @@
                                     <span class="label">Address</span>
                                     <input type="address" id="address" />
                                 </div>
-                                <div class="detail">
+                                <div class="method-container">
                                     <span class="label">Default Payment Method</span>
-                                    <select id="method">
-                                        <option value="Cash on Delivery">Cash on Delivery</option>
-                                        <option value="GCash">GCash</option>
-                                        <option value="Maya">Maya</option>
-                                        <option value="Card">Card</option>
-                                    </select>
+                                    <div class="methods">
+                                        <img src="assets/gcash.png" alt="" id="method-preview">
+                                        <select id="method">
+                                            <option value="Cash on Delivery">
+                                                Cash on Delivery
+                                            </option>
+                                            <option value="GCash">GCash</option>
+                                            <option value="Maya">Maya</option>
+                                            <option value="Card">Card</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="display-picture">
