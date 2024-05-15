@@ -61,8 +61,6 @@ $(document).ready(function () {
       if (this.readyState == 4 && this.status == 200) {
         let userData = JSON.parse(this.responseText);
 
-        console.log(userData);
-
         if (userData.loggedIn == "false") {
           toastr.warning("You need to login first.", "Warning", {
             timeOut: 2000,
@@ -77,36 +75,36 @@ $(document).ready(function () {
         }
 
         if (userData.loggedIn == "true") {
-          let fetchOrdersData = JSON.stringify(userData);
+          let fetchCartsData = JSON.stringify(userData);
 
-          let fetchOrdersReq = new XMLHttpRequest();
-          fetchOrdersReq.onreadystatechange = function () {
+          let fetchCartsReq = new XMLHttpRequest();
+          fetchCartsReq.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-              orders = JSON.parse(this.responseText);
+              let carts = JSON.parse(this.responseText);
 
-              let orderExists = false;
+              let cartExists = false;
 
-              orders.forEach((order) => {
-                if (order.product_id == productId) {
+              carts.forEach((cart) => {
+                if (cart.product_id == productId) {
                   toastr.error("Product already in cart", "Error", {
                     timeOut: 2000,
                     preventDuplicates: true,
                     positionClass: "toast-bottom-left",
                   });
 
-                  orderExists = true;
+                  cartExists = true;
                 }
               });
 
-              if (!orderExists) {
-                let orderData = JSON.stringify({
+              if (!cartExists) {
+                let cartData = JSON.stringify({
                   userId: userData.id,
                   productId: productId,
                 });
 
-                let addOrderReq = new XMLHttpRequest();
+                let addCartReq = new XMLHttpRequest();
 
-                addOrderReq.onreadystatechange = function () {
+                addCartReq.onreadystatechange = function () {
                   if (this.readyState == 4 && this.status == 200) {
                     let cartData = JSON.parse(this.responseText);
                     toastr.success(cartData.message, "Success", {
@@ -117,14 +115,14 @@ $(document).ready(function () {
                   }
                 };
 
-                addOrderReq.open("POST", "api/orders/add.php", true);
-                addOrderReq.send(orderData);
+                addCartReq.open("POST", "api/carts/add.php", true);
+                addCartReq.send(cartData);
               }
             }
           };
 
-          fetchOrdersReq.open("POST", "api/orders/fetch.php", true);
-          fetchOrdersReq.send(fetchOrdersData);
+          fetchCartsReq.open("POST", "api/carts/fetch_cart.php", true);
+          fetchCartsReq.send(fetchCartsData);
         }
       }
     };

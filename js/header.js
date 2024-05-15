@@ -1,147 +1,78 @@
 $(document).ready(function () {
-  let dropdown = $(".dropdown");
-  let dropdownContainer = $(".dropdown-container");
+  dropdownHandler();
 
-  dropdown.hide();
+  slidingTextHandler();
 
-  dropdownContainer.hover(
-    (event) => {
-      let hoveredDropdown = $(event.target).find(".dropdown");
-      hoveredDropdown.show();
-    },
-    (event) => {
-      let hoveredDropdown = $(event.target).find(".dropdown");
-      hoveredDropdown.hide();
-    }
-  );
+  userProfileHandler();
 
-  dropdown.mouseleave(() => {
-    dropdown.hide();
-  });
+  cartHandler();
 
-  // Select the spans
-  var emailSpan = $(".text-email");
-  var shippingSpan = $(".text-shipping");
+  function cartHandler() {
+    //cart
+    $("#cart-btn").click(function () {
+      let userReq = new XMLHttpRequest();
 
-  // Hide the shipping span initially
-  shippingSpan.hide();
+      userReq.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let cartsReq = new XMLHttpRequest();
 
-  // Set the interval to switch between spans every 3 seconds
-  setInterval(function () {
-    if (emailSpan.is(":visible")) {
-      shippingSpan.css("right", "0");
-      shippingSpan.show();
-      shippingSpan.animate({ right: "48%" });
+          let userData = JSON.parse(this.responseText);
 
-      emailSpan.animate({ left: -10 }, () => {
-        emailSpan.hide();
-        emailSpan.css("left", "");
-      });
-    } else {
-      emailSpan.css("right", "0");
-      emailSpan.show();
-      emailSpan.animate({ right: "43%" });
+          if (userData.loggedIn == "false") {
+            toastr.warning("You need to login first.", "Warning", {
+              timeOut: 2000,
+              preventDuplicates: true,
+              positionClass: "toast-bottom-left",
+              // Redirect
+              onHidden: function () {
+                window.location.href = "login.php";
+              },
+            });
+          } else {
+            $(".cart-container").toggleClass("open");
+            $(".cart-view").toggleClass("open");
+            $("body").css("overflow", "hidden");
 
-      shippingSpan.animate({ left: -5 }, () => {
-        shippingSpan.hide();
-        shippingSpan.css("left", "");
-        emailSpan.show();
-      });
-    }
-  }, 4000); // 3 seconds interval
+            cartsReq.onreadystatechange = function () {
+              if (this.readyState == 4 && this.status == 200) {
+                let carts = JSON.parse(this.responseText);
 
-  //pfp and username logic
-  let checkUserReq = new XMLHttpRequest();
+                displayCarts(carts, userData);
+              }
+            };
 
-  checkUserReq.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      let userAuthData = JSON.parse(this.responseText);
-
-      if (userAuthData.loggedIn == "true") {
-        let fetchUserReq = new XMLHttpRequest();
-
-        fetchUserReq.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-            let userData = JSON.parse(this.responseText);
-
-            $(".pfp #username").show().text(userData.username);
-            $("#profile-picture").attr("src", userData.profilePicture);
+            cartsReq.open("POST", "api/carts/fetch_cart.php", true);
+            userData = JSON.stringify(userData);
+            cartsReq.send(userData);
           }
-        };
-
-        fetchUserReq.open("POST", "api/users/fetch_id.php", true);
-        fetchUserReq.send(JSON.stringify(userAuthData));
-      }
-    }
-  };
-
-  checkUserReq.open("GET", "utils/check_user.php", true);
-  checkUserReq.send();
-
-  //cart
-  $("#cart-btn").click(function () {
-    let userReq = new XMLHttpRequest();
-
-    userReq.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        let ordersReq = new XMLHttpRequest();
-
-        let userData = JSON.parse(this.responseText);
-
-        if (userData.loggedIn == "false") {
-          toastr.warning("You need to login first.", "Warning", {
-            timeOut: 2000,
-            preventDuplicates: true,
-            positionClass: "toast-bottom-left",
-            // Redirect
-            onHidden: function () {
-              window.location.href = "login.php";
-            },
-          });
-        } else {
-          $(".cart-container").toggleClass("open");
-          $(".cart").toggleClass("open");
-          $("body").css("overflow", "hidden");
-
-          ordersReq.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-              let orders = JSON.parse(this.responseText);
-
-              displayOrders(orders, userData);
-            }
-          };
-
-          ordersReq.open("POST", "api/orders/fetch.php", true);
-          userData = JSON.stringify(userData);
-          ordersReq.send(userData);
         }
-      }
-    };
+      };
 
-    userReq.open("GET", "utils/check_user.php", true);
-    userReq.send();
-  });
+      userReq.open("GET", "utils/check_user.php", true);
+      userReq.send();
+    });
 
-  $("#close-btn").click(function () {
-    $(".cart-container").toggleClass("open");
-    $(".cart").toggleClass("open");
-    $("body").css("overflow", "scroll");
-  });
+    $("#close-btn").click(function () {
+      $(".cart-container").toggleClass("open");
+      $(".cart-view").toggleClass("open");
+      $("body").css("overflow", "scroll");
+    });
+  }
 
-  function displayOrders(orders, user) {
-    if (orders.length == 0) {
+  function displayCarts(carts, user) {
+    if (carts.length == 0) {
       $(".cart-empty").show();
       return;
     }
 
-    let container = $(".orders");
+    let container = $(".carts");
 
     container.empty();
 
     let subTotal = 0;
 
-    $.each(orders, function (index, order) {
-      const productId = JSON.stringify({ id: order.product_id });
+    $.each(carts, function (index, cart) {
+      const productId = JSON.stringify({ id: cart.product_id });
 
       //fetch product
       let productReq = new XMLHttpRequest();
@@ -150,22 +81,22 @@ $(document).ready(function () {
         if (this.readyState == 4 && this.status == 200) {
           let product = JSON.parse(this.responseText);
 
-          let orderElement = $("<div>").addClass("order");
+          let orderElement = $("<div>").addClass("cart");
 
           let checkbox = $("<input>")
-            .attr({ type: "checkbox", id: "selected-order" })
+            .attr({ type: "checkbox", id: "selected-cart" })
             .prop("checked", true);
 
           let imageContainer = $("<a>")
             .addClass("image-container")
             .attr("href", "product.php?id=" + product.id);
 
-          let orderImage = $("<img>").attr("src", product.location);
+          let cartImage = $("<img>").attr("src", product.location);
 
-          let orderDetails = $("<div>").addClass("order-details");
-          let orderName = $("<h4>").text(product.name);
+          let cartDetails = $("<div>").addClass("cart-details");
+          let cartName = $("<h4>").text(product.name);
 
-          let orderPrice = $("<span>").text(
+          let cartPrice = $("<span>").text(
             "₱ " + product.price.toLocaleString("en-US")
           );
 
@@ -174,30 +105,40 @@ $(document).ready(function () {
             .attr("id", "decrease-quantity")
             .text("-")
             .click(() => {
-              updateQuantity("decrease", order, user);
+              updateQuantity("decrease", cart, user, product.quantity);
             });
-          let orderQuantity = $("<span>").text(order.order_quantity);
+          let cartQuantity = $("<span>").text(cart.cart_quantity);
           let increaseQuantity = $("<button>")
             .attr("id", "increase-quantity")
             .text("+")
             .click(() => {
-              updateQuantity("increase", order, user);
+              updateQuantity("increase", cart, user, product.quantity);
             });
-          imageContainer.append(orderImage);
+
+          let removeBtn = $("<span>")
+            .text("Remove Item")
+            .attr("id", "remove-btn");
+
+          imageContainer.append(cartImage);
 
           quantityContainer.append([
             decreaseQuantity,
-            orderQuantity,
+            cartQuantity,
             increaseQuantity,
           ]);
 
-          orderDetails.append([orderName, orderPrice, quantityContainer]);
+          cartDetails.append([
+            cartName,
+            cartPrice,
+            quantityContainer,
+            removeBtn,
+          ]);
 
-          orderElement.append([checkbox, imageContainer, orderDetails]);
+          orderElement.append([checkbox, imageContainer, cartDetails]);
           container.append(orderElement);
 
           let total = 0;
-          total = product.price * order.order_quantity;
+          total = product.price * cart.cart_quantity;
 
           if (checkbox.prop("checked")) {
             subTotal += total;
@@ -213,6 +154,10 @@ $(document).ready(function () {
               $("#total").text("₱ " + subTotal.toLocaleString("en-US"));
             }
           });
+
+          removeBtn.on("click", function () {
+            removeItem(cart, user);
+          });
         }
       };
 
@@ -221,42 +166,143 @@ $(document).ready(function () {
     });
   }
 
-  function updateQuantity(operation, order, user) {
+  function removeItem(cart, user) {
+    let removeReq = new XMLHttpRequest();
+
+    removeReq.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let removeRes = JSON.parse(this.responseText);
+
+        if (removeRes.success == "true") {
+          let cartsReq = new XMLHttpRequest();
+          cartsReq.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              let carts = JSON.parse(this.responseText);
+              displayCarts(carts, user);
+            }
+          };
+          cartsReq.open("POST", "api/carts/fetch_cart.php", true);
+          cartsReq.send(user);
+        }
+      }
+    };
+
+    removeReq.open("DELETE", "api/carts/remove_id.php", true);
+    removeReq.send(JSON.stringify({ id: cart.cart_id }));
+  }
+
+  function updateQuantity(operation, cart, user, quantity) {
     let updateData = JSON.stringify({
       operation: operation,
-      order_id: order.order_id,
-      order_quantity: order.order_quantity,
+      cart_id: cart.cart_id,
+      product_quantity: quantity,
     });
 
     let updateReq = new XMLHttpRequest();
 
     updateReq.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        let newQuantity = JSON.parse(this.responseText).quantity;
+        let cartsReq = new XMLHttpRequest();
 
-        if (newQuantity == 0) {
-          let removeReq = new XMLHttpRequest();
-
-          removeReq.open("DELETE", "api/orders/remove.php", true);
-          removeReq.send(JSON.stringify({ id: order.order_id }));
-        }
-
-        let ordersReq = new XMLHttpRequest();
-
-        ordersReq.onreadystatechange = function () {
+        cartsReq.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
-            let orders = JSON.parse(this.responseText);
+            let carts = JSON.parse(this.responseText);
 
-            displayOrders(orders, user);
+            displayCarts(carts, user);
           }
         };
 
-        ordersReq.open("POST", "api/orders/fetch.php", true);
-        ordersReq.send(user);
+        cartsReq.open("POST", "api/carts/fetch_cart.php", true);
+        cartsReq.send(user);
       }
     };
 
-    updateReq.open("POST", "api/orders/update.php", true);
+    updateReq.open("POST", "api/carts/update.php", false);
     updateReq.send(updateData);
+  }
+
+  function dropdownHandler() {
+    let dropdown = $(".dropdown");
+    let dropdownContainer = $(".dropdown-container");
+
+    dropdown.hide();
+
+    dropdownContainer.hover(
+      (event) => {
+        let hoveredDropdown = $(event.target).find(".dropdown");
+        hoveredDropdown.show();
+      },
+      (event) => {
+        let hoveredDropdown = $(event.target).find(".dropdown");
+        hoveredDropdown.hide();
+      }
+    );
+
+    dropdown.mouseleave(() => {
+      dropdown.hide();
+    });
+  }
+
+  function slidingTextHandler() {
+    // Select the spans
+    var emailSpan = $(".text-email");
+    var shippingSpan = $(".text-shipping");
+
+    // Hide the shipping span initially
+    shippingSpan.hide();
+
+    // Set the interval to switch between spans every 3 seconds
+    setInterval(function () {
+      if (emailSpan.is(":visible")) {
+        shippingSpan.css("right", "0");
+        shippingSpan.show();
+        shippingSpan.animate({ right: "48%" });
+
+        emailSpan.animate({ left: -10 }, () => {
+          emailSpan.hide();
+          emailSpan.css("left", "");
+        });
+      } else {
+        emailSpan.css("right", "0");
+        emailSpan.show();
+        emailSpan.animate({ right: "43%" });
+
+        shippingSpan.animate({ left: -5 }, () => {
+          shippingSpan.hide();
+          shippingSpan.css("left", "");
+          emailSpan.show();
+        });
+      }
+    }, 4000); // 3 seconds interval
+  }
+
+  function userProfileHandler() {
+    //pfp and username logic
+    let checkUserReq = new XMLHttpRequest();
+
+    checkUserReq.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let userAuthData = JSON.parse(this.responseText);
+
+        if (userAuthData.loggedIn == "true") {
+          let fetchUserReq = new XMLHttpRequest();
+
+          fetchUserReq.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              let userData = JSON.parse(this.responseText);
+
+              $(".pfp #username").show().text(userData.username);
+              $("#profile-picture").attr("src", userData.profilePicture);
+            }
+          };
+
+          fetchUserReq.open("POST", "api/users/fetch_id.php", true);
+          fetchUserReq.send(JSON.stringify(userAuthData));
+        }
+      }
+    };
+
+    checkUserReq.open("GET", "utils/check_user.php", true);
+    checkUserReq.send();
   }
 });

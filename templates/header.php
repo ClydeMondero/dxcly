@@ -65,13 +65,13 @@
 
             <!-- Cart -->
             <div class="cart-container">
-                <div class="cart">
+                <div class="cart-view">
                     <div class="cart-top">
                         <h2>Cart</h3>
                             <span id="close-btn" class="material-symbols-outlined"> close </span>
                     </div>
                     <hr>
-                    <div class="orders">
+                    <div class="carts">
                         <span class="cart-empty">Your cart is currently empty</span>
                     </div>
                     <hr>

@@ -10,7 +10,7 @@ try {
     $productId = $data['productId'];
 
     //insert the data into the cart table
-    $stmt = $pdo->prepare('INSERT INTO orders (user_id, product_id) VALUES (?, ?)');
+    $stmt = $pdo->prepare('INSERT INTO carts (user_id, product_id) VALUES (?, ?)');
     $stmt->execute([$userId, $productId]);
 
     //return the data in JSON format
