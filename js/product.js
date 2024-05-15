@@ -43,6 +43,13 @@ $(document).ready(function () {
     let description = $("<p>").text(product.description);
     let cartBtn = $("<button>").addClass("add-btn").text("Add to cart");
 
+    if (product.quantity == 0) {
+      cartBtn
+        .prop("disabled", true)
+        .css("pointer-events", "none")
+        .css("opacity", "0.5");
+    }
+
     links.append([all, type]);
 
     subDetails.append([price, quantity]);
