@@ -4,9 +4,7 @@ $(document).ready(function (e) {
   displayUserData();
 
   getOrders();
-  //TODO: randomize order status
   //TODO: filter orders
-  //TODO: return and cancel button
 
   $("#pfp-input").on("change", function () {
     const [file] = $(this).prop("files");
@@ -108,49 +106,52 @@ function displayOrders(orders) {
 
         let orderStatus = $("<span>").text(order.status).addClass("status");
 
-        let orderBtn = $("<button>").addClass("order-btn");
+        let orderBtn = $("<button>")
+          .addClass("order-btn")
+          .text("Pay Now")
+          .hide();
 
         let nameContainer = $("<div>").addClass("name-container");
 
-        switch (order.status) {
-          case "To Pay":
-            orderBtn.text("Pay");
-            orderBtn.click(() => {
-              $(".payment-modal").css("display", "flex");
-              $("body").css("overflow", "hidden");
+        if (order.status == "To Pay") {
+          orderBtn.show();
 
-              if ($(".payment-modal").css("display") == "flex") {
-                setTimeout(() => {
-                  let paymentReq = new XMLHttpRequest();
+          orderBtn.click(() => {
+            $(".payment-modal").css("display", "flex");
+            $("body").css("overflow", "hidden");
 
-                  paymentReq.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                      console.log(this.response);
-                      let paymentRes = JSON.parse(this.responseText);
+            if ($(".payment-modal").css("display") == "flex") {
+              setTimeout(() => {
+                let paymentReq = new XMLHttpRequest();
 
-                      if (paymentRes) {
-                        toastr.success(paymentRes.message, "Success", {
-                          timeOut: 2000,
-                          preventDuplicates: true,
-                          positionClass: "toast-bottom-left",
-                          onHidden: () => {
-                            $(".payment-modal").css("display", "none");
-                            window.location.href = "account.php";
-                          },
-                        });
-                      }
+                paymentReq.onreadystatechange = function () {
+                  if (this.readyState == 4 && this.status == 200) {
+                    let paymentRes = JSON.parse(this.responseText);
+
+                    if (paymentRes) {
+                      toastr.success(paymentRes.message, "Success", {
+                        timeOut: 2000,
+                        preventDuplicates: true,
+                        positionClass: "toast-bottom-left",
+                        onHidden: () => {
+                          $(".payment-modal").css("display", "none");
+
+                          window.location.href = "account.php";
+                        },
+                      });
                     }
-                  };
+                  }
+                };
 
-                  paymentReq.open("POST", "api/carts/pay.php", true);
-                  paymentReq.send(JSON.stringify({ id: order.cart_id }));
-                }, 5000);
+                paymentReq.open("POST", "api/carts/pay.php", true);
+                paymentReq.send(JSON.stringify({ id: order.cart_id }));
+              }, 5000);
 
-                $(".payment-modal #close-btn").click(() => {
-                  $(".payment-modal").css("display", "none");
-                });
-              }
-            });
+              $(".payment-modal #close-btn").click(() => {
+                $(".payment-modal").css("display", "none");
+              });
+            }
+          });
         }
 
         imageContainer.append([orderImage]);
@@ -166,6 +167,39 @@ function displayOrders(orders) {
         orderElement.append([imageContainer, orderDetails]);
 
         container.append([orderElement]);
+
+        let currentDate = new Date();
+
+        if (
+          order.status == "To Receive" &&
+          currentDate > new Date(order.received_date)
+        ) {
+          let completeReq = new XMLHttpRequest();
+
+          completeReq.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              let completeReq = JSON.parse(this.responseText);
+
+              if (completeReq) {
+                deliveredDate.text(
+                  "Received: " + moment(order.readyState).fromNow()
+                );
+
+                toastr.success(completeReq.message, "Success", {
+                  timeOut: 2000,
+                  preventDuplicates: true,
+                  positionClass: "toast-bottom-left",
+                  onHidden: () => {
+                    $(".payment-modal").css("display", "none");
+                  },
+                });
+              }
+            }
+          };
+
+          completeReq.open("POST", "api/carts/complete.php", true);
+          completeReq.send(JSON.stringify({ id: order.cart_id }));
+        }
       }
     };
 
