@@ -3,8 +3,10 @@ $(document).ready(function (e) {
 
   displayUserData();
 
-  //TODO: display orders
+  getOrders();
   //TODO: randomize order status
+  //TODO: filter orders
+  //TODO: return and cancel button
 
   $("#pfp-input").on("change", function () {
     const [file] = $(this).prop("files");
@@ -14,6 +16,103 @@ $(document).ready(function (e) {
     }
   });
 
+  updateHandler();
+});
+
+function getOrders() {
+  let checkUserReq = new XMLHttpRequest();
+
+  checkUserReq.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let checkUserRes = JSON.parse(this.responseText);
+
+      let ordersReq = new XMLHttpRequest();
+
+      ordersReq.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let orders = JSON.parse(this.responseText);
+
+          displayOrders(orders);
+        }
+      };
+
+      ordersReq.open("POST", "api/carts/fetch_orders.php", true);
+      ordersReq.send(JSON.stringify(checkUserRes));
+    }
+  };
+
+  checkUserReq.open("GET", "utils/check_user.php", true);
+  checkUserReq.send();
+}
+
+function displayOrders(orders) {
+  let container = $(".orders");
+
+  container.empty();
+
+  if (orders.length == 0) {
+    let ordersEmpty = $("<span>")
+      .addClass("orders-empty")
+      .text("You've not placed any orders yet.");
+
+    container.css("justify-content", "center");
+
+    container.append(ordersEmpty);
+    return;
+  }
+
+  for (let order of orders) {
+    let productId = JSON.stringify({ id: order.product_id });
+
+    let productReq = new XMLHttpRequest();
+
+    productReq.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let product = JSON.parse(this.responseText);
+
+        let orderElement = $("<div>").addClass("order");
+        let imageContainer = $("<a>")
+          .addClass("image-container")
+          .attr("href", "product.php?id=" + product.id);
+
+        let orderImage = $("<img>").attr("src", product.location);
+
+        let orderDetails = $("<div>").addClass("details");
+        let orderName = $("<h4>").text(product.name);
+
+        let total = product.price * order.cart_quantity;
+
+        let orderPrice = $("<span>").text(
+          "Price: ₱ " + product.price.toLocaleString("en-US")
+        );
+
+        let orderQuantity = $("<span>").text(order.cart_quantity + " pc/s");
+
+        let orderTotal = $("<span>")
+          .text("Total: ₱ " + total.toLocaleString("en-US"))
+          .addClass("total");
+        let orderStatus = $("<span>").text(order.status).addClass("status");
+
+        let pricesContainer = $("<div>").addClass("prices");
+
+        imageContainer.append([orderImage]);
+
+        pricesContainer.append([orderPrice, orderQuantity, orderTotal]);
+
+        orderDetails.append([orderName, pricesContainer, orderStatus]);
+
+        orderElement.append([imageContainer, orderDetails]);
+
+        container.append([orderElement]);
+      }
+    };
+
+    productReq.open("POST", "api/products/fetch_id.php", true);
+    productReq.send(productId);
+  }
+}
+
+function updateHandler() {
   $("#update-btn").click(function () {
     const [file] = $("#pfp-input").prop("files");
 
@@ -46,7 +145,7 @@ $(document).ready(function (e) {
     };
     updateReq.send(updateData);
   });
-});
+}
 
 function uploadPicture() {
   let picture = $("#pfp-input").prop("files")[0];

@@ -60,53 +60,39 @@ function cartHandler() {
   });
 
   $("#checkout-btn").click(function () {
-    let createOrderReq = new XMLHttpRequest();
+    let checkoutReq = new XMLHttpRequest();
 
-    createOrderReq.open("POST", "api/orders/create.php", true);
+    checkoutReq.open("POST", "api/carts/checkout.php", true);
 
-    createOrderReq.onreadystatechange = function () {
+    checkoutReq.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        let createOrderRes = JSON.parse(this.responseText);
+        let checkoutRes = JSON.parse(this.responseText);
 
-        if (createOrderRes.success) {
-          let checkoutReq = new XMLHttpRequest();
-
-          checkoutReq.open("POST", "api/carts/checkout.php", true);
-
-          checkoutReq.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-              let checkoutRes = JSON.parse(this.responseText);
-
-              if (checkoutRes.success) {
-                toastr.success(checkoutRes.message, "Success", {
-                  timeOut: 2000,
-                  preventDuplicates: true,
-                  positionClass: "toast-bottom-left",
-                  // Redirect
-                  onHidden: function () {
-                    window.location.href = "account.php";
-                  },
-                });
-              } else {
-                toastr.error(checkoutRes.message, "Failed", {
-                  timeOut: 2000,
-                  preventDuplicates: true,
-                  positionClass: "toast-bottom-left",
-                });
-              }
-            }
-          };
-
-          checkoutReq.send(
-            JSON.stringify({
-              selected_carts: selectedCarts,
-              order_id: createOrderRes.orderId,
-            })
-          );
+        if (checkoutRes.success) {
+          toastr.success(checkoutRes.message, "Success", {
+            timeOut: 2000,
+            preventDuplicates: true,
+            positionClass: "toast-bottom-left",
+            // Redirect
+            onHidden: function () {
+              window.location.href = "account.php";
+            },
+          });
+        } else {
+          toastr.error(checkoutRes.message, "Failed", {
+            timeOut: 2000,
+            preventDuplicates: true,
+            positionClass: "toast-bottom-left",
+          });
         }
       }
     };
-    createOrderReq.send(JSON.stringify({ total: subTotal }));
+
+    checkoutReq.send(
+      JSON.stringify({
+        selected_carts: selectedCarts,
+      })
+    );
   });
 }
 
@@ -144,7 +130,7 @@ function displayCarts(carts, user) {
       if (this.readyState == 4 && this.status == 200) {
         let product = JSON.parse(this.responseText);
 
-        let orderElement = $("<div>").addClass("cart");
+        let cartElement = $("<div>").addClass("cart");
 
         let checkbox = $("<input>")
           .attr({ type: "checkbox", id: "selected-cart" })
@@ -196,8 +182,8 @@ function displayCarts(carts, user) {
 
         cartDetails.append([cartName, cartPrice, quantityContainer, removeBtn]);
 
-        orderElement.append([checkbox, imageContainer, cartDetails]);
-        container.append(orderElement);
+        cartElement.append([checkbox, imageContainer, cartDetails]);
+        container.append(cartElement);
 
         let total = 0;
 

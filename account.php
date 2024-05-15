@@ -33,6 +33,7 @@
                         <h2>
                             Your Orders
                         </h2>
+                        <div class="orders"></div>
                     </div>
                     <div class="account-details">
                         <h2>Account Details</h2>

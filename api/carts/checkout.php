@@ -7,17 +7,16 @@ header('Content-type: application/json');
 try {
     $data = json_decode(file_get_contents('php://input'), true);
     $selectedCarts = $data['selected_carts'];
-    $orderId = $data['order_id'];
 
     foreach ($selectedCarts as $cart_id) {
         $stmt = $pdo->prepare('
             UPDATE carts
-            SET order_id = ?, status = ?
+            SET status = ?, ordered_date = ? 
             WHERE cart_id = ?
         ');
         $stmt->execute([
-            $orderId,
-            'Ordered',
+            'Pending',
+            date('Y-m-d H:i:s'),
             $cart_id
         ]);
     }
