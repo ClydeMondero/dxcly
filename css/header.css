@@ -3,7 +3,7 @@
 }
 
 .header {
-  width: 100%;
+  width: 100vw;
   height: 18vh;
   padding: 1.8rem 8.5rem;
   position: fixed;
@@ -276,4 +276,63 @@
 .no-hover {
   pointer-events: none;
   opacity: 0.5;
+}
+
+.header-mobile {
+  width: 100vw;
+  height: 9vh;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #000;
+  transition: all 0.8s ease;
+}
+
+.header-mobile span {
+  font-size: 2rem;
+}
+
+.header-mobile .logo {
+  font-weight: 600;
+  font-family: Astera;
+}
+
+#menu-button {
+  transform: translateY(-5px);
+  scale: 1.2;
+  cursor: pointer;
+}
+
+.mobile-menu {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background-color: var(--dark);
+  display: none;
+  animation: pop 0.3s ease-in-out;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .header {
+    display: none;
+  }
+
+  .header-mobile {
+    display: flex;
+  }
 }

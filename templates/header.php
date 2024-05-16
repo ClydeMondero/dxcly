@@ -85,6 +85,20 @@
             </div>
         </div>
     </div>
+
+    <!-- Header Mobile -->
+    <div class="header-mobile">
+        <span class="logo"><a href="index.php">DXCLY</a></span>
+        <span class="material-symbols-outlined" id="menu-button">
+            menu
+        </span>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+
+    </div>
+
     <script src="js/header.js"></script>
 </body>
 

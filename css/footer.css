@@ -4,6 +4,7 @@
   background-color: var(--dark-gray);
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 10rem;
 }
 
@@ -48,11 +49,41 @@
   font-size: 0.8rem;
 }
 
-.footer .top-content .logo {
+.footer .logo {
   font-family: Astera;
   font-size: 2rem;
 }
 
 .footer .bottom {
   font-size: 0.8rem;
+}
+
+.contents {
+  display: flex;
+  align-items: start;
+  gap: 5rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .footer .top {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .footer .logo {
+    margin-top: 2rem;
+  }
+
+  .services {
+    gap: 2rem;
+  }
+
+  .contents {
+    gap: 2rem;
+  }
+
+  .services {
+    overflow: hidden;
+  }
 }

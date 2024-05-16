@@ -43,3 +43,9 @@ a {
   margin-top: 7.5rem;
   min-height: 85vh;
 }
+
+@media only screen and (max-width: 768px) {
+  .content {
+    margin-top: 4rem;
+  }
+}

@@ -42,6 +42,7 @@
   padding: var(--medium-padding);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 2rem;
 }
 
@@ -52,8 +53,8 @@
 }
 
 .type img {
-  width: 325px;
-  height: 380px;
+  width: 20vw;
+  height: 40vh;
   transition: all 0.3s ease-in;
 }
 
@@ -83,11 +84,13 @@
 }
 
 .essentials {
+  overflow: hidden;
   padding: var(--medium-padding);
   display: flex;
   flex-direction: column;
   text-align: center;
   gap: 1rem;
+  align-items: center;
   color: var(--light-gray);
 }
 
@@ -150,5 +153,75 @@
 
   .hero img {
     width: 100%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .header {
+    display: none;
+  }
+
+  .header-mobile {
+    display: flex;
+  }
+
+  .hero {
+    overflow: hidden;
+  }
+
+  .hero img {
+    width: 100vh;
+  }
+
+  .hero-overlay {
+    display: none;
+  }
+
+  .hero-overlay2 {
+    display: none;
+  }
+
+  .hero-container {
+    padding: 0 4rem;
+    margin-top: 2rem;
+  }
+
+  .hero-container p {
+    text-align: justify;
+  }
+
+  .types {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .type img {
+    width: 40vh;
+    height: 40vh;
+  }
+
+  .parallax {
+    background-position: center;
+  }
+
+  .testimonial {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 4rem;
+    text-align: center;
+  }
+
+  .testimony {
+    width: 100%;
+  }
+
+  .testimonial img {
+    width: 100%;
+  }
+
+  .testimony p {
+    text-align: justify;
   }
 }

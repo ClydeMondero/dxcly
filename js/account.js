@@ -122,6 +122,7 @@ function displayOrders(orders) {
 
           orderBtn.click(() => {
             $(".payment-modal").css("display", "flex");
+            $("html, body").scrollTop(0);
             $("body").css("overflow", "hidden");
 
             if ($(".payment-modal").css("display") == "flex") {

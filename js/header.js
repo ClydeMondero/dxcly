@@ -6,7 +6,17 @@ $(document).ready(function () {
   userProfileHandler();
 
   cartHandler();
+
+  mobileMenuHandler();
 });
+
+function mobileMenuHandler() {
+  $("#menu-button").click(function () {
+    $(".mobile-menu").css("display", "block");
+    $("body").css("overflow", "hidden");
+    $("html, body").scrollTop(0);
+  });
+}
 
 function cartHandler() {
   //cart
