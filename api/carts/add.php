@@ -16,5 +16,5 @@ try {
     //return the data in JSON format
     echo json_encode(['message' => 'Product added to cart successfully']);
 } catch (Exception $e) {
-    echo json_encode(['error' => $e]);
+    echo json_encode(['error' => $e, 'user' => $userId, 'product' => $productId]);
 }

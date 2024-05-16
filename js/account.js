@@ -102,6 +102,10 @@ function displayOrders(orders) {
           .text("To Receive at: " + moment(order.received_date).fromNow())
           .addClass("date");
 
+        if (order.status == "Completed") {
+          deliveredDate.text("Received: " + moment(order.readyState).fromNow());
+        }
+
         order.status == "To Pay" ? deliveredDate.hide() : deliveredDate.show();
 
         let orderStatus = $("<span>").text(order.status).addClass("status");
@@ -168,37 +172,37 @@ function displayOrders(orders) {
 
         container.append([orderElement]);
 
-        let currentDate = new Date();
+        if (order.status == "To Receive") {
+          setTimeout(() => {
+            let completeReq = new XMLHttpRequest();
 
-        if (
-          order.status == "To Receive" &&
-          currentDate > new Date(order.received_date)
-        ) {
-          let completeReq = new XMLHttpRequest();
+            completeReq.onreadystatechange = function () {
+              if (this.readyState == 4 && this.status == 200) {
+                console.log(this.response);
+                let completeReq = JSON.parse(this.responseText);
 
-          completeReq.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-              let completeReq = JSON.parse(this.responseText);
-
-              if (completeReq) {
-                deliveredDate.text(
-                  "Received: " + moment(order.readyState).fromNow()
-                );
-
-                toastr.success(completeReq.message, "Success", {
-                  timeOut: 2000,
-                  preventDuplicates: true,
-                  positionClass: "toast-bottom-left",
-                  onHidden: () => {
-                    $(".payment-modal").css("display", "none");
-                  },
-                });
+                if (completeReq) {
+                  toastr.success(completeReq.message, "Success", {
+                    timeOut: 2000,
+                    preventDuplicates: true,
+                    positionClass: "toast-bottom-left",
+                    onHidden: () => {
+                      window.location.href = "account.php";
+                    },
+                  });
+                }
               }
-            }
-          };
+            };
 
-          completeReq.open("POST", "api/carts/complete.php", true);
-          completeReq.send(JSON.stringify({ id: order.cart_id }));
+            completeReq.open("POST", "api/carts/complete.php", true);
+            completeReq.send(
+              JSON.stringify({
+                cart_id: order.cart_id,
+                product_id: order.product_id,
+                cart_quantity: order.cart_quantity,
+              })
+            );
+          }, 5000);
         }
       }
     };

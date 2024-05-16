@@ -16,6 +16,7 @@ try {
     foreach ($users as $user) {
         if ($user['email'] === $email && $user['password'] === $password) {
             $_SESSION['id'] = $user['id'];
+            $_SESSION['logged_in'] = true;
 
             echo json_encode(['message' => 'Login Successful', 'success' => 'true']);
             return;

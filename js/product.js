@@ -61,19 +61,19 @@ $(document).ready(function () {
   }
 
   function addProductToCart(productId) {
-    //checks if user is logged in or not
-    let userReq = new XMLHttpRequest();
+    let userRequest = new XMLHttpRequest();
 
-    userReq.onreadystatechange = function () {
+    userRequest.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         let userData = JSON.parse(this.responseText);
+
+        console.log(userData);
 
         if (userData.loggedIn == "false") {
           toastr.warning("You need to login first.", "Warning", {
             timeOut: 2000,
             preventDuplicates: true,
             positionClass: "toast-bottom-left",
-            // Redirect
             onHidden: function () {
               window.location.href = "login.php";
             },
@@ -84,10 +84,12 @@ $(document).ready(function () {
         if (userData.loggedIn == "true") {
           let fetchCartsData = JSON.stringify(userData);
 
-          let fetchCartsReq = new XMLHttpRequest();
-          fetchCartsReq.onreadystatechange = function () {
+          let fetchCartsRequest = new XMLHttpRequest();
+          fetchCartsRequest.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
               let carts = JSON.parse(this.responseText);
+
+              console.log(carts);
 
               let cartExists = false;
 
@@ -109,12 +111,15 @@ $(document).ready(function () {
                   productId: productId,
                 });
 
-                let addCartReq = new XMLHttpRequest();
+                console.log(cartData);
 
-                addCartReq.onreadystatechange = function () {
+                let addCartRequest = new XMLHttpRequest();
+
+                addCartRequest.onreadystatechange = function () {
                   if (this.readyState == 4 && this.status == 200) {
-                    let cartData = JSON.parse(this.responseText);
-                    toastr.success(cartData.message, "Success", {
+                    let cartRes = JSON.parse(this.responseText);
+
+                    toastr.success(cartRes.message, "Success", {
                       timeOut: 2000,
                       preventDuplicates: true,
                       positionClass: "toast-bottom-left",
@@ -122,19 +127,19 @@ $(document).ready(function () {
                   }
                 };
 
-                addCartReq.open("POST", "api/carts/add.php", true);
-                addCartReq.send(cartData);
+                addCartRequest.open("POST", "api/carts/add.php", true);
+                addCartRequest.send(cartData);
               }
             }
           };
 
-          fetchCartsReq.open("POST", "api/carts/fetch_cart.php", true);
-          fetchCartsReq.send(fetchCartsData);
+          fetchCartsRequest.open("POST", "api/carts/fetch_cart.php", true);
+          fetchCartsRequest.send(fetchCartsData);
         }
       }
     };
 
-    userReq.open("GET", "utils/check_user.php", true);
-    userReq.send();
+    userRequest.open("GET", "utils/check_user.php", true);
+    userRequest.send();
   }
 });
