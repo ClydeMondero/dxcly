@@ -12,9 +12,21 @@ $(document).ready(function () {
 
 function mobileMenuHandler() {
   $("#menu-button").click(function () {
-    $(".mobile-menu").css("display", "block");
+    $(".mobile-menu").css("display", "flex");
     $("body").css("overflow", "hidden");
     $("html, body").scrollTop(0);
+  });
+
+  $(".dropdown-mobile .items").hide();
+
+  $(".dropdown-mobile .title").click(function () {
+    $(this).find(".arrow").toggleClass("rotate-90");
+    $(this).siblings(".items").slideToggle();
+  });
+
+  $("#close-menu").click(function () {
+    $(".mobile-menu").css("display", "none");
+    $("body").css("overflow", "scroll");
   });
 }
 

@@ -96,7 +96,42 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu">
-
+        <span id="close-menu" class="material-symbols-outlined"> close </span>
+        <span><a href="index.php">Home</a></span>
+        <span><a href="products.php">Techwear</a></span>
+        <div class="dropdown-mobile">
+            <div class="title">
+                <span>Clothes</span>
+                <span class="material-symbols-outlined arrow">
+                    keyboard_arrow_right
+                </span>
+            </div>
+            <div class="items">
+                <span><a href="products.php?type=Jackets">Jackets</a></span>
+                <span><a href="products.php?type=Hoodies">Hoodies</a></span>
+                <span><a href="products.php?type=Vest">Vest</a></span>
+                <span><a href="products.php?type=Pants">Pants</a></span>
+                <span><a href="products.php?type=Shirts">Shirts</a></span>
+                <span><a href="products.php?type=Cloaks">Cloaks</a></span>
+                <span><a href="products.php?type=Shorts">Shorts</a></span>
+            </div>
+        </div>
+        <span><a href="products.php?type=Footwear">Footwear</a></span>
+        <div class="dropdown-mobile">
+            <div class="title">
+                <span>Accessories</span>
+                <span class="material-symbols-outlined arrow">
+                    keyboard_arrow_right
+                </span>
+            </div>
+            <div class="items">
+                <span><a href="products.php?type=Hats">Hats</a></span>
+                <span><a href="products.php?type=Masks">Masks</a></span>
+                <span><a href="products.php?type=Belts">Belts</a></span>
+                <span><a href="products.php?type=Gloves">Gloves</a></span>
+                <span><a href="products.php?type=Backpacks">Backpacks</a></span>
+            </div>
+        </div>
     </div>
 
     <script src="js/header.js"></script>
