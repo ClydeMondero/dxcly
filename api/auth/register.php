@@ -6,10 +6,10 @@ header('Content-type: application/json');
 
 try {
     $data = json_decode(file_get_contents('php://input'), true);
-    $fullName = $data['full_name'];
+    $fullName = $data['name'];
     $address = $data['address'];
     $email = $data['email'];
-    $contactNumber = $data['contact_number'];
+    $contactNumber = $data['contact'];
     $username = $data['username'];
     $password = $data['password'];
     $account_type = 'buyer';
@@ -17,8 +17,7 @@ try {
     $stmt = $pdo->prepare('INSERT INTO users (full_name, address, email, contact_number, username, password, account_type) VALUES (?, ?, ?, ?, ?, ?, ?)');
     $stmt->execute([$fullName, $address, $email, $contactNumber, $username, $password, $account_type]);
 
-    echo json_encode(['message' => 'Sign up successful', 'user' => $data]);
+    echo json_encode(['message' => 'Sign up successful', 'success' => true]);
 } catch (Exception $e) {
-    echo $e;
-    echo json_encode(['message' => 'Something went wrong.']);
+    echo json_encode(['message' => $e, 'success' => false]);
 }

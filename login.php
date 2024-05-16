@@ -35,7 +35,7 @@
                     <input type="password" id="password">
                 </div>
                 <button id="login-button">Sign In</button>
-                <span class="create">Create Account</span>
+                <a href="register.php" class="create"><span>Create Account</span></a>
             </div>
         </div>
     </div>
