@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 14, 2024 at 03:25 AM
+-- Generation Time: May 17, 2024 at 10:25 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -24,25 +24,31 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Table structure for table `carts`
 --
 
-CREATE TABLE `orders` (
-  `order_id` int(11) NOT NULL,
+CREATE TABLE `carts` (
+  `cart_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `order_quantity` int(11) NOT NULL DEFAULT 1,
-  `ordered_date` date DEFAULT NULL,
-  `delivered_date` date DEFAULT NULL,
-  `order_status` set('Unordered','Cancelled','In Transit','Delivered','Returned') NOT NULL DEFAULT 'Unordered'
+  `cart_quantity` int(11) NOT NULL DEFAULT 1,
+  `status` set('In Cart','To Pay','To Receive','Completed') NOT NULL DEFAULT 'In Cart',
+  `ordered_date` datetime DEFAULT NULL,
+  `received_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `orders`
+-- Dumping data for table `carts`
 --
 
-INSERT INTO `orders` (`order_id`, `user_id`, `product_id`, `order_quantity`, `ordered_date`, `delivered_date`, `order_status`) VALUES
-(1, 2, 3, 1, NULL, NULL, 'Unordered');
+INSERT INTO `carts` (`cart_id`, `user_id`, `product_id`, `cart_quantity`, `status`, `ordered_date`, `received_date`) VALUES
+(1, 2, 4, 1, 'Completed', '2024-05-16 10:44:16', '2024-05-30 04:47:48'),
+(2, 2, 4, 1, 'Completed', '2024-05-16 10:48:15', '2024-05-24 04:48:25'),
+(3, 2, 26, 1, 'Completed', '2024-05-16 13:47:14', '2024-05-23 07:47:27'),
+(4, 2, 4, 1, 'Completed', '2024-05-16 13:47:14', '2024-05-22 07:47:37'),
+(5, 2, 4, 1, 'In Cart', NULL, NULL),
+(6, 6, 56, 1, 'Completed', '2024-05-17 08:32:35', '2024-05-30 02:33:51'),
+(7, 6, 2, 1, 'Completed', '2024-05-17 08:34:27', '2024-05-31 02:34:40');
 
 -- --------------------------------------------------------
 
@@ -65,10 +71,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `location`, `price`, `type`, `description`, `quantity`) VALUES
-(1, 'BLACK TECHWEAR JACKET\r\n', 'assets\\jackets\\black-techwear-jacket-techwear-351_360x.jpg', 3999, 'Jackets', 'This black techwear jacket is the perfect garment to enhance your techwear look. Fashioned from a blend of lightweight yet sturdy materials, this jacket is versatile enough for the brisk winds of fall and the biting cold of winter. It\'s tailored for the mo', 10),
-(2, 'XGXF JACKET\r\n', 'assets\\jackets\\xgxf-jacket-techwear-667_360x.jpg', 3999, 'Jackets', 'This XGXF jacket (X.G.X.F.) is a fashionable windbreaker, thanks to the many details that decorate it for a stunning rendering. In addition, this functional clothing has numerous storage pockets to allow you to take all your personal belongings with you wh', 12),
+(1, 'BLACK TECHWEAR JACKET\r\n', 'assets\\jackets\\black-techwear-jacket-techwear-351_360x.jpg', 3999, 'Jackets', 'This black techwear jacket is the perfect garment to enhance your techwear look. Fashioned from a blend of lightweight yet sturdy materials, this jacket is versatile enough for the brisk winds of fall and the biting cold of winter. It\'s tailored for the mo', 0),
+(2, 'XGXF JACKET\r\n', 'assets\\jackets\\xgxf-jacket-techwear-667_360x.jpg', 3999, 'Jackets', 'This XGXF jacket (X.G.X.F.) is a fashionable windbreaker, thanks to the many details that decorate it for a stunning rendering. In addition, this functional clothing has numerous storage pockets to allow you to take all your personal belongings with you wh', 11),
 (3, 'PUNK BLACK DENIM JACKET', 'assets\\jackets\\punk-black-denim-jacket-techwear-605_360x.jpg', 3999, 'Jackets', 'Assert your rebellious soul! This Punk black denim jacket is printed on the back with a red demon head. The ideal outfit for all dissidents against the system.\r\n\r\nThe jacket features a striking print of a red demon head on the back, symbolizing a fierce de', 14),
-(4, 'TECHWEAR RAIN JACKET', 'assets\\jackets\\techwear-rain-jacket-techwear-769_360x.jpg', 3499, 'Jackets', 'This water-resistant rain jacket is inspired by Korean Techwear. Made of light and hydrophobic technical material, this water-repellent jacket allows you to stay dry while the rain comes down.', 12),
+(4, 'TECHWEAR RAIN JACKET', 'assets\\jackets\\techwear-rain-jacket-techwear-769_360x.jpg', 3499, 'Jackets', 'This water-resistant rain jacket is inspired by Korean Techwear. Made of light and hydrophobic technical material, this water-repellent jacket allows you to stay dry while the rain comes down.', 8),
 (5, 'TECHWEAR BOMBER JACKET', 'assets\\jackets\\techwear-bomber-jacket-techwear-676_360x.jpg', 5699, 'Jackets', 'Wear a fashion emblem in a techwear style. The bomber was originally a vest worn by U.S. Army pilots. The bomber or \"flight jacket\", is a timeless and must-have in this street and urban techwear declination. Ideal to wear with cargo pants for an assured te', 12),
 (6, 'TECHWEAR COAT', 'assets\\jackets\\techwear-coat-techwear-558_360x.jpg', 8499, 'Jackets', 'Upgrade your dark style with this must-have techwear coat. Equipped with two zip pockets and a double hood, this techwear coat adds a technical dimension to your outfit. Inspired by the trench coat revisited with an urban look, this coat guarantees you an ', 12),
 (7, 'BLACK SLEEVELESS JACKET', 'assets\\jackets\\black-sleeveless-jacket-techwear-593_360x.jpg', 4499, 'Jackets', 'Adopt an urban look with this black sleeveless jacket and its hood, ideal for mid-season. Tailored for the mid-season but versatile enough for layering in various climates, this jacket is the perfect amalgamation of form and function. The hooded wonder of ', 12),
@@ -90,7 +96,7 @@ INSERT INTO `products` (`id`, `name`, `location`, `price`, `type`, `description`
 (23, 'STREETWEAR VEST', 'assets\\vests\\streetwear-vest-techwear-998_360x.jpg', 4999, 'Vest', 'This streetwear vest brings you comfortable clothing for everyday use in urban environments. The vest is equipped with two front pockets for storing all equipment and daily necessities. This vest is perfect for any early morning activities. This piece also', 15),
 (24, 'STREETWEAR TACTICAL VEST', 'assets\\vests\\streetwear-tactical-vest-techwear-119_360x.jpg', 6499, 'Vest', 'Wear it over a t-shirt, long sleeve top or hoodie for functional street style. Throw on this functional vest top with two chest pockets, and you\'ll be ready to hit the streets in urban style. The jacket has a zip closure, so you can easily put on and take ', 15),
 (25, 'TECHWEAR JOGGERS', 'assets\\pants\\techwear-joggers-techwear-624_360x.jpg', 4999, 'Pants', 'Step into the future of urban fashion while ensuring you remain agile, comfortable, and ready for any adventure. With our Tactical Joggers, we offer the perfect fusion of modern design aesthetics, utility, and unparalleled comfort.\r\nMore comfortable than p', 15),
-(26, 'TACTICAL JOGGERS', 'assets\\pants\\tactical-joggers-techwear-844_360x.jpg', 5499, 'Pants', 'These pants are the perfect mix of comfort, style and utility. Equipped with many pockets, these black jogging pants are resistant and stretchy for everyday comfort. Its futuristic design is ideal for a techwear, street goth style.\r\n\r\nThe tactical joggers ', 15),
+(26, 'TACTICAL JOGGERS', 'assets\\pants\\tactical-joggers-techwear-844_360x.jpg', 5499, 'Pants', 'These pants are the perfect mix of comfort, style and utility. Equipped with many pockets, these black jogging pants are resistant and stretchy for everyday comfort. Its futuristic design is ideal for a techwear, street goth style.\r\n\r\nThe tactical joggers ', 14),
 (27, 'TECHWEAR CARGO PANTS', 'assets\\pants\\techwear-cargo-pants-techwear-476_360x.jpg', 6499, 'Pants', 'When it comes to fashion that effortlessly merges utility with avant-garde style, techwear holds its ground. The Techwear Cargo Pants are a prime example, blending the robustness of military apparel with edgy streetwear aesthetics.', 15),
 (28, 'TECHWEAR BLACK PANTS', 'assets\\pants\\techwear-black-pants-techwear-337_360x.jpg', 6499, 'Pants', 'Very comfortable to wear and made of soft and resistant technological materials, these black pants can easily be worn with any style. All in black or contrasting with a colorful t-shirt, these famous military-inspired pants will enhance your look with grea', 15),
 (29, 'X T-SHIRT', 'assets\\shirts\\x-t-shirt-techwear-167_360x.jpg', 4499, 'Shirts', 'This trendy shirt made of cotton as a big cross on the front. The X tee-shirt, made of resistant materials, can be worn all year round with a maximum comfort. Complete your outfit with a cap and a short or cargo pants for a techwear style.', 15),
@@ -120,7 +126,7 @@ INSERT INTO `products` (`id`, `name`, `location`, `price`, `type`, `description`
 (53, 'TECH SNEAKERS', 'assets\\footwear\\tech-sneakers-techwear-454_360x.jpg', 6999, 'Footwear', 'Get an amazing pair of useful sneakers made of breathable materials to improve your comfort. Their unique design will delight with ease all those in search of fashion techwear. These soft and light shoes will give you a feeling of freedom! Available in bla', 15),
 (54, 'WARCORE HELMET', 'assets\\masks\\warcore-helmet-techwear-361_360x.jpg', 6499, 'Masks', 'This warcore helmet is a type of armor that was specifically designed for use in warfare. It is made out of a tough, durable material that can withstand a lot of damage, and it also has a visor that protects the wearer\'s eyes from flying debris or enemy at', 15),
 (55, 'FUTURISTIC FACE MASK', 'assets\\masks\\futuristic-face-mask-techwear-749_360x.jpg', 8999, 'Masks', 'Introducing the ultimate accessory for any cyberpunk enthusiast or cosplayer, the Futuristic LED face mask! This cutting-edge mask is inspired by the iconic style and attitude of the cyberpunk genre, and is guaranteed to turn heads wherever you go.\r\n\r\nFeat', 15),
-(56, 'TACTICAL CAP', 'assets\\hats\\tactical-cap-techwear-133_360x.jpg', 3999, 'Hats', 'This tactical hat will accompany you for daily use because it allows you to be protected against rain but also against sunlight. Equipped with an elastic band it adapts perfectly to your head size. The different velcro panels will allow you to personalize ', 15),
+(56, 'TACTICAL CAP', 'assets\\hats\\tactical-cap-techwear-133_360x.jpg', 3999, 'Hats', 'This tactical hat will accompany you for daily use because it allows you to be protected against rain but also against sunlight. Equipped with an elastic band it adapts perfectly to your head size. The different velcro panels will allow you to personalize ', 14),
 (57, 'TECHWEAR FACE MASK', 'assets\\masks\\techwear-face-mask-techwear-616_360x.jpg', 4499, 'Masks', 'In the realm of techwear, where functionality seamlessly merges with high-end fashion, our Techwear Face Mask stands unparalleled. This isn\'t just an accessory, it\'s an essential piece that accentuates your techwear ensemble while offering the comfort and ', 15),
 (58, 'TECHWEAR FACE SHIELD', 'assets\\masks\\techwear-face-shield-techwear-775_360x.jpg', 4999, 'Masks', 'The Techwear Face Shield is a revolutionary protective face mask developed to provide maximum protection against airborne particles. It has been designed with innovative design that conform to the natural shape of your face, providing superior coverage and', 15),
 (59, 'TACTICAL NYLON BELT', 'assets\\belts\\tactical-nylon-belt-techwear-751_360x.jpg', 3499, 'Belts', 'Made out of resistant material with a unique design, you can also discover the Black utility belt from our Techwear belt collection. An essential to adjust the waist of your pants with style. This webbing strap with snap-fit buckle perfectly matches with a', 15),
@@ -147,8 +153,8 @@ CREATE TABLE `users` (
   `username` varchar(128) NOT NULL,
   `password` varchar(128) NOT NULL,
   `account_type` set('seller','admin','buyer','') NOT NULL,
-  `payment_method` set('Cash on Delivery','GCash','Maya','Card') DEFAULT 'Cash on Delivery',
-  `profile_picture` varchar(256) NOT NULL
+  `payment_method` set('GCash','Maya','Card') DEFAULT 'GCash',
+  `profile_picture` varchar(256) NOT NULL DEFAULT 'assets/default-pfp.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -156,20 +162,22 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `full_name`, `address`, `email`, `contact_number`, `username`, `password`, `account_type`, `payment_method`, `profile_picture`) VALUES
-(1, 'Ynnoh Mondero', 'Baliuag, Bulacan', 'ynnoh@gmail.com', '09123456788', 'ynnoh', '123', 'admin', 'Cash on Delivery', ''),
-(2, 'Clyde Mondero', 'Baliuag, Bulacan', 'clyde@gmail.com', '09123456789', 'clyde', '1234', 'buyer', 'Cash on Delivery', '');
+(1, 'Ynnoh Mondero', 'Baliuag, Bulacan', 'ynnoh@gmail.com', '09123456788', 'ynnoh', '123', 'admin', '', ''),
+(2, 'Rein Mondero', 'Baliuag, Bulacan', 'clyde24@gmail.com', '09123456789', 'clyde24', '1234', 'buyer', 'GCash', 'assets/default-pfp.png'),
+(3, '32', '331', '321', '3313', '32131', '31231', 'buyer', 'GCash', 'assets/default-pfp.png'),
+(4, '3213', '3131', '3131', '313', '31231', '3131', 'buyer', 'GCash', 'assets/default-pfp.png'),
+(5, '432', '424', '42', '42', '42', '42', 'buyer', 'GCash', 'assets/default-pfp.png'),
+(6, 'Andrei Poma', 'Baliuag, Bulacan', 'poma@gmail.com', '09565317151', 'pomski', '123456', 'buyer', 'GCash', 'assets/default-pfp.png');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `orders`
+-- Indexes for table `carts`
 --
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`order_id`),
-  ADD KEY `carts_FK_1` (`user_id`),
-  ADD KEY `carts_FK_2` (`product_id`);
+ALTER TABLE `carts`
+  ADD PRIMARY KEY (`cart_id`);
 
 --
 -- Indexes for table `products`
@@ -189,10 +197,10 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT for table `carts`
 --
-ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `carts`
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -204,18 +212,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `orders`
---
-ALTER TABLE `orders`
-  ADD CONSTRAINT `carts_FK_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `carts_FK_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

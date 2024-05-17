@@ -1,31 +1,4 @@
 $(document).ready(function () {
-  let lastScrollTop = 0;
-  let header = $(".header");
-  let top = $(".header .top");
-
-  $(window).scroll(function (event) {
-    let st = $(this).scrollTop();
-    if (st > lastScrollTop) {
-      // Scroll down
-      header.css("height", "10vh"); // Set the minimized height
-      header.css("justify-content", "center");
-
-      top.hide();
-    } else {
-      // Scroll up
-      if (st === 0) {
-        header.css("height", "18vh"); // Set the original height when scrolled at the top
-        header.css("justify-content", "space-between");
-
-        top.show();
-      } else {
-        header.css("height", "10vh"); // Set the minimized height for other scroll positions
-        header.css("justify-content", "center");
-      }
-    }
-    lastScrollTop = st;
-  });
-
   // Select all child elements of the products class
   const services = $(".services").children();
 
