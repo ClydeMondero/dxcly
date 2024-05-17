@@ -21,50 +21,50 @@
     <div class="content">
         <!-- Register -->
         <div class="register-container">
-            <div class="register">
+            <form class="register">
                 <h2>Register</h2>
                 <div class="details">
                     <div class="personal-details">
                         <h3>Personal Details</h2>
                             <div class="input">
                                 <label for="name">Full Name</label>
-                                <input type="text" id="name">
+                                <input type="text" id="name" required>
                             </div>
                             <div class="input">
                                 <label for="username">Username</label>
-                                <input type="text" id="user-name">
+                                <input type="text" id="user-name" required>
                             </div>
 
                             <div class="input">
                                 <label for="contact">Contact Number</label>
-                                <input type="phone" id="contact">
+                                <input type="phone" id="contact" required>
                             </div>
 
                             <div class="input">
                                 <label for="address">Address</label>
-                                <input type="text" id="address">
+                                <input type="text" id="address" required>
                             </div>
                     </div>
                     <div class="account-details">
                         <h3>Account Details</h2>
                             <div class="input">
                                 <label for="email">Email</label>
-                                <input type="email" id="email">
+                                <input type="email" id="email" required>
                             </div>
                             <div class="input">
                                 <label for="password">Password</label>
-                                <input type="password" id="password">
+                                <input type="password" id="password" required minlength="8">
                             </div>
 
                             <div class="input">
                                 <label for="confirm-password">Confirm Password</label>
-                                <input type="password" id="confirm-password">
+                                <input type="password" id="confirm-password" required minlength="8">
                             </div>
                     </div>
                 </div>
-                <button id="register-button">Sign Up</button>
+                <button type="button" id="register-button">Sign Up</button>
                 <a href="login.php" class="login"><span>Login to a existing account</span></a>
-            </div>
+            </form>
         </div>
     </div>
 

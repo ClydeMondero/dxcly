@@ -39,26 +39,26 @@
                     <div class="account-details">
                         <h2>Account Details</h2>
                         <div class="center">
-                            <div class="details">
+                            <form class="details">
                                 <div class="detail">
                                     <span class="label">Name</span>
-                                    <input type=text" id="name" />
+                                    <input type=text" id="name" required />
                                 </div>
                                 <div class="detail">
                                     <span class="label">Username</span>
-                                    <input type="text" id="username" />
+                                    <input type="text" id="username" required />
                                 </div>
                                 <div class="detail">
                                     <span class="label">Email</span>
-                                    <input type="email" id="email" />
+                                    <input type="email" id="email" required />
                                 </div>
                                 <div class="detail">
                                     <span class="label">Contact Number</span>
-                                    <input type="phone" id="contact" />
+                                    <input type="phone" id="contact" requiredj />
                                 </div>
                                 <div class="detail">
                                     <span class="label">Address</span>
-                                    <input type="address" id="address" />
+                                    <input type="address" id="address" required />
                                 </div>
                                 <div class="method-container">
                                     <span class="label">Payment Method</span>
@@ -72,14 +72,14 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                                <button type="button" id="update-btn">Save</button>
+                            </form>
                             <div class="display-picture">
                                 <img id="pfp-preview">
                                 <label for="pfp-input">Choose File</label>
                                 <input type="file" id="pfp-input" accept="image/*">
                             </div>
                         </div>
-                        <button id="update-btn">Save</button>
                     </div>
                 </div>
             </div>

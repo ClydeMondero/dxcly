@@ -14,10 +14,26 @@ try {
     $password = $data['password'];
     $account_type = 'buyer';
 
-    $stmt = $pdo->prepare('INSERT INTO users (full_name, address, email, contact_number, username, password, account_type) VALUES (?, ?, ?, ?, ?, ?, ?)');
-    $stmt->execute([$fullName, $address, $email, $contactNumber, $username, $password, $account_type]);
+    $stmtEmail = $pdo->prepare('SELECT * FROM users WHERE email = ? LIMIT 1');
+    $stmtEmail->execute([$email]);
+    $userEmail = $stmtEmail->fetch(PDO::FETCH_ASSOC);
 
-    echo json_encode(['message' => 'Sign up successful', 'success' => true]);
+    $stmtUsername = $pdo->prepare('SELECT * FROM users WHERE username = ? LIMIT 1');
+    $stmtUsername->execute([$username]);
+    $userUsername = $stmtUsername->fetch(PDO::FETCH_ASSOC);
+
+    if ($userEmail || $userUsername) {
+        if ($userEmail) {
+            echo json_encode(['message' => 'Email already exists', 'success' => false]);
+        } else {
+            echo json_encode(['message' => 'Username already exists', 'success' => false]);
+        }
+    } else {
+        $stmt = $pdo->prepare('INSERT INTO users (full_name, address, email, contact_number, username, password, account_type) VALUES (?, ?, ?, ?, ?, ?, ?)');
+        $stmt->execute([$fullName, $address, $email, $contactNumber, $username, $password, $account_type]);
+
+        echo json_encode(['message' => 'Sign up successful', 'success' => true]);
+    }
 } catch (Exception $e) {
     echo json_encode(['message' => $e, 'success' => false]);
 }

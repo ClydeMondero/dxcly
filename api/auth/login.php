@@ -23,7 +23,7 @@ try {
         }
     }
 
-    echo json_encode(['message' => 'Login Failed', 'success' => 'false']);
+    echo json_encode(['message' => 'Incorrect email or password', 'success' => 'false']);
 } catch (Exception $e) {
     echo json_encode(['message' => 'Something went wrong.', 'error' => $e]);
 }

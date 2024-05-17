@@ -4,7 +4,6 @@ $(document).ready(function (e) {
   displayUserData();
 
   getOrders();
-  //TODO: filter orders
 
   $("#pfp-input").on("change", function () {
     const [file] = $(this).prop("files");
@@ -215,6 +214,11 @@ function displayOrders(orders) {
 
 function updateHandler() {
   $("#update-btn").click(function () {
+    if (!$(".details")[0].checkValidity()) {
+      $(".details")[0].reportValidity();
+      return;
+    }
+
     const [file] = $("#pfp-input").prop("files");
 
     let updateData = JSON.stringify({
@@ -240,6 +244,12 @@ function updateHandler() {
             preventDuplicates: true,
             positionClass: "toast-bottom-left",
             onHidden: uploadPicture,
+          });
+        } else {
+          toastr.warning(updateRes.message, "Warning", {
+            timeOut: 2000,
+            preventDuplicates: true,
+            positionClass: "toast-bottom-left",
           });
         }
       }

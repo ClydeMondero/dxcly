@@ -21,22 +21,22 @@
     <div class="content">
         <!-- Login -->
         <div class="login-container">
-            <div class="login">
+            <form class="login">
                 <h2>Login</h2>
                 <div class="input">
                     <label for="email">Email</label>
-                    <input type="email" id="email">
+                    <input type="email" id="email" required>
                 </div>
                 <div class="input">
                     <div class="input-password">
                         <label for="password">Password</label>
                         <span>Forget Password?</span>
                     </div>
-                    <input type="password" id="password">
+                    <input type="password" id="password" required minlength="8">
                 </div>
-                <button id="login-button">Sign In</button>
+                <button type="button" id="login-button">Sign In</button>
                 <a href="register.php" class="create"><span>Create Account</span></a>
-            </div>
+            </form>
         </div>
     </div>
 

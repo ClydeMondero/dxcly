@@ -1,5 +1,10 @@
 $(document).ready(function () {
   $("#login-button").click(() => {
+    if (!$(".login")[0].checkValidity()) {
+      $(".login")[0].reportValidity();
+      return;
+    }
+
     let email = $("#email").val();
     let password = $("#password").val();
 

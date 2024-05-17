@@ -1,5 +1,10 @@
 $(document).ready(function () {
   $("#register-button").click(() => {
+    if (!$(".register")[0].checkValidity()) {
+      $(".register")[0].reportValidity();
+      return;
+    }
+
     let name = $("#name").val();
     let username = $("#user-name").val();
     let contact = $("#contact").val();
@@ -34,7 +39,7 @@ $(document).ready(function () {
             },
           });
         } else {
-          toastr.error(registerRes.message, "Failed", {
+          toastr.warning(registerRes.message, "Warning", {
             timeOut: 2000,
             preventDuplicates: true,
             positionClass: "toast-bottom-left",
