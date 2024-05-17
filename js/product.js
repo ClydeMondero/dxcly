@@ -38,7 +38,7 @@ $(document).ready(function () {
       .attr("href", `products.php?type=${product.type}`);
     let name = $("<h3>").text(product.name);
     let subDetails = $("<div>").addClass("sub-details");
-    let price = $("<span>").text("₱" + product.price);
+    let price = $("<span>").text("₱ " + product.price.toLocaleString("en-US"));
     let quantity = $("<span>").text("Stock: " + product.quantity);
     let description = $("<p>").text(product.description);
     let cartBtn = $("<button>").addClass("add-btn").text("Add to cart");
