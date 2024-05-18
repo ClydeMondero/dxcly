@@ -37,7 +37,7 @@
 
                             <div class="input">
                                 <label for="contact">Contact Number</label>
-                                <input type="phone" id="contact" required>
+                                <input type="tel" id="contact" required minlength="11" maxlength="11">
                             </div>
 
                             <div class="input">

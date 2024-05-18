@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="detail">
                                     <span class="label">Contact Number</span>
-                                    <input type="phone" id="contact" requiredj />
+                                    <input type="tel" id="contact" required minlength="11" maxlength="11" />
                                 </div>
                                 <div class="detail">
                                     <span class="label">Address</span>

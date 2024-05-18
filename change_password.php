@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/change-password.css" />
     <link rel="icon" href="assets/skull.png" sizes="32x32" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>DXCLY: Login</title>
+    <title>DXCLY: Change Password</title>
 </head>
 
 <body>
@@ -19,55 +19,38 @@
     <?php include  "templates/header.php"; ?>
 
     <div class="content">
-        <!-- Login -->
-        <div class="login-container">
-            <form class="login">
-                <h2>Login</h2>
+        <!-- Change Password -->
+
+        <div class="change-container">
+            <form class="change">
+                <h2>Change Password</h2>
                 <div class="input">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" required>
-                </div>
-                <div class="input">
-                    <div class="input-password">
-                        <label for="password">Password</label>
-                        <span id="forgot-password">Forget Password?</span>
-                    </div>
+                    <label for="new-password">New Password</label>
                     <div class="password-container">
-                        <input type="password" id="password" required minlength="8">
+                        <input type="password" id="new-password" required minlength="8">
                         <span id="show-password" class="material-symbols-outlined"> visibility </span>
                     </div>
                 </div>
-                <button type="button" id="login-button">Sign In</button>
-                <a href="register.php" class="create"><span>Create Account</span></a>
-            </form>
-
-            <!-- Verify Email -->
-            <form class="verify">
-                <h2>Verify Email</h2>
-                <div class="input">
-                    <div class="input-email">
-                        <label for="email-verify">Email</label>
-                        <span id="send-code">Send Code</span>
-                    </div>
-                    <input type="email" id="email-verify" required>
-                </div>
                 <div class="input">
                     <div class="input-password">
-                        <label for="pin">Verification Pin</label>
+                        <label for="confirm-password">Confirm Password</label>
+                        <span id="password-match"></span>
                     </div>
                     <div class="password-container">
-                        <input type="tel" id="pin" required minlength="6" maxlength="6" autocomplete="off">
+                        <input type="password" id="confirm-password" required minlength="8">
+                        <span id="show-confirm-password" class="material-symbols-outlined"> visibility </span>
                     </div>
                 </div>
-                <button type="button" id="verify-button">Verify</button>
-                <span class="cancel">Cancel</span>
+                <button type="button" id="change-button">Save</button>
+                <a href="login.php" class="cancel"><span>Cancel</span></a>
             </form>
         </div>
+
     </div>
 
     <?php include  "templates/footer.php"; ?>
 
-    <script src="js/login.js"></script>
+    <script src="js/change-password.js"></script>
 </body>
 
 </html>
