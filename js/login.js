@@ -39,4 +39,10 @@ $(document).ready(function () {
     loginReq.open("POST", "api/auth/login.php", true);
     loginReq.send(loginData);
   });
+
+  $("#show-password").hover(() => {
+    $("#password").attr("type") == "password"
+      ? $("#password").attr("type", "text")
+      : $("#password").attr("type", "password");
+  });
 });

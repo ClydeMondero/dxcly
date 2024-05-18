@@ -38,6 +38,18 @@
   cursor: pointer;
 }
 
+.password-container {
+  position: relative;
+}
+
+#show-password {
+  position: absolute;
+  top: 30%;
+  right: 5%;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 .login button {
   border: none;
   background-color: #000;

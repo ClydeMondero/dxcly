@@ -32,7 +32,10 @@
                         <label for="password">Password</label>
                         <span>Forget Password?</span>
                     </div>
-                    <input type="password" id="password" required minlength="8">
+                    <div class="password-container">
+                        <input type="password" id="password" required minlength="8">
+                        <span id="show-password" class="material-symbols-outlined"> visibility </span>
+                    </div>
                 </div>
                 <button type="button" id="login-button">Sign In</button>
                 <a href="register.php" class="create"><span>Create Account</span></a>
