@@ -1,7 +1,7 @@
 $(document).ready(function () {
-  $("#change-button").click(() => {
-    if (!$(".change")[0].checkValidity()) {
-      $(".change")[0].reportValidity();
+  $("#reset-button").click(() => {
+    if (!$(".reset")[0].checkValidity()) {
+      $(".reset")[0].reportValidity();
       return;
     }
 
@@ -42,40 +42,40 @@ $(document).ready(function () {
   $("#new-password").on("input", function () {
     if ($("#new-password").val() == "") {
       $("#password-match").text("").css();
-      $("#change-button").prop("disabled", true).addClass("no-hover");
+      $("#reset-button").prop("disabled", true).addClass("no-hover");
     }
 
     if ($("#new-password").val() == $("#confirm-password").val()) {
       $(".input-password").css("justify-content", "space-between");
       $("#password-match").text("Password match").css("color", "green");
 
-      $("#change-button").prop("disabled", false).removeClass("no-hover");
+      $("#reset-button").prop("disabled", false).removeClass("no-hover");
     } else {
       $(".input-password").css("justify-content", "space-between");
       $("#password-match").text("Password does not match").css("color", "red");
-      $("#change-button").prop("disabled", true).addClass("no-hover");
+      $("#reset-button").prop("disabled", true).addClass("no-hover");
     }
   });
 
   $("#confirm-password").on("input", function () {
     if ($("#confirm-password").val() == "") {
       $("#password-match").text("").css();
-      $("#change-button").prop("disabled", true).addClass("no-hover");
+      $("#reset-button").prop("disabled", true).addClass("no-hover");
     }
 
     if ($("#new-password").val() == $("#confirm-password").val()) {
       $(".input-password").css("justify-content", "space-between");
       $("#password-match").text("Password match").css("color", "green");
 
-      $("#change-button").prop("disabled", false).removeClass("no-hover");
+      $("#reset-button").prop("disabled", false).removeClass("no-hover");
     } else {
       $(".input-password").css("justify-content", "space-between");
       $("#password-match").text("Password does not match").css("color", "red");
-      $("#change-button").prop("disabled", true).addClass("no-hover");
+      $("#reset-button").prop("disabled", true).addClass("no-hover");
     }
   });
 
-  $("#change-button").prop("disabled", true).addClass("no-hover");
+  $("#reset-button").prop("disabled", true).addClass("no-hover");
 
   $("#show-password").hover(() => {
     $("#new-password").attr("type") == "password"

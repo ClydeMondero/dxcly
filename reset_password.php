@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/change-password.css" />
+    <link rel="stylesheet" href="css/reset-password.css" />
     <link rel="icon" href="assets/skull.png" sizes="32x32" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -19,11 +19,11 @@
     <?php include  "templates/header.php"; ?>
 
     <div class="content">
-        <!-- Change Password -->
+        <!-- Reset Password -->
 
-        <div class="change-container">
-            <form class="change">
-                <h2>Change Password</h2>
+        <div class="reset-container">
+            <form class="reset">
+                <h2>Reset Password</h2>
                 <div class="input">
                     <label for="new-password">New Password</label>
                     <div class="password-container">
@@ -41,7 +41,7 @@
                         <span id="show-confirm-password" class="material-symbols-outlined"> visibility </span>
                     </div>
                 </div>
-                <button type="button" id="change-button">Save</button>
+                <button type="button" id="reset-button">Save</button>
                 <a href="login.php" class="cancel"><span>Cancel</span></a>
             </form>
         </div>
@@ -50,7 +50,7 @@
 
     <?php include  "templates/footer.php"; ?>
 
-    <script src="js/change-password.js"></script>
+    <script src="js/reset-password.js"></script>
 </body>
 
 </html>
