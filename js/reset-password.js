@@ -34,7 +34,7 @@ $(document).ready(function () {
       }
     };
 
-    changeReq.open("POST", "api/users/change_password.php", true);
+    changeReq.open("POST", "api/users/reset_password.php", true);
     changeReq.send(
       JSON.stringify({ id: id, password: $("#new-password").val() })
     );

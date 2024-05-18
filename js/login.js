@@ -75,14 +75,25 @@ $(document).ready(function () {
       : $("#password").attr("type", "password");
   });
 
+  // Get the URL search params
+  const urlParams = new URLSearchParams(window.location.search);
+
+  // Get the value of the "forgot" search parameter
+  const forgotParam = urlParams.get("change");
+
+  const forgot = forgotParam === "true" ? true : false;
+
   $("#forgot-password").click(() => {
-    $(".login").css("display", "none");
-    $(".verify").css("display", "flex");
+    window.location.href = "login.php?change=true";
   });
 
+  if (forgot) {
+    $(".login").css("display", "none");
+    $(".verify").css("display", "flex");
+  }
+
   $(".cancel").click(() => {
-    $(".login").css("display", "flex");
-    $(".verify").css("display", "none");
+    window.location.href = "login.php";
   });
 
   $("#send-code").click(() => {

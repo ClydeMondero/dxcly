@@ -14,6 +14,21 @@ $(document).ready(function (e) {
   });
 
   updateHandler();
+
+  $("#change-password").click(() => {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let data = JSON.parse(this.responseText);
+
+        if (data.success == "true") {
+          window.location.href = "login.php?change=true";
+        }
+      }
+    };
+    xhr.open("DELETE", "api/auth/logout.php", true);
+    xhr.send();
+  });
 });
 
 function getOrders() {

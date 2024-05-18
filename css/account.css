@@ -98,7 +98,7 @@
   padding: 0.8rem;
 }
 
-.order .name-container{
+.order .name-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -114,7 +114,6 @@
   flex-direction: column;
   flex: 1;
 }
-
 
 .order .prices {
   display: flex;
@@ -186,6 +185,18 @@
 .account-details button:hover {
   box-shadow: inset 200px 0 0 0 #000;
   color: #fff;
+}
+
+.account-details .bottom {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#change-password {
+  font-size: 0.8rem;
+  color: var(--light-gray);
 }
 
 .account-details .center {
@@ -293,7 +304,7 @@
   height: 250px;
 }
 
-.modal-container {
+.payment-modal-container {
   height: 50%;
   width: 50%;
   background-color: #fff;

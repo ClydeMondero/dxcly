@@ -72,7 +72,10 @@
                                         </select>
                                     </div>
                                 </div>
-                                <button type="button" id="update-btn">Save</button>
+                                <div class="bottom">
+                                    <button type="button" id="update-btn">Save</button>
+                                    <span id="change-password">Change Password</span>
+                                </div>
                             </form>
                             <div class="display-picture">
                                 <img id="pfp-preview">
