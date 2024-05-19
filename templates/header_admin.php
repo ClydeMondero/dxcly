@@ -16,7 +16,7 @@
                 <hr />
             </span>
             <span>
-                <a href="dashboard.php?page=users.php">Users</a>
+                <a href="dashboard.php?page=users">Users</a>
                 <hr />
             </span>
             <span>

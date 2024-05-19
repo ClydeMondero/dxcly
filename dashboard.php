@@ -52,19 +52,19 @@
         <div class="boxes">
             <div class="box">
                 <span>Number of Users</span>
-                <span id="users">4</span>
+                <span id="users">0</span>
             </div>
             <div class="box">
                 <span>Monthly Sales</span>
-                <span id="monthly-sales">3,499</span>
+                <span id="monthly-sales">₱ 0</span>
             </div>
             <div class="box">
                 <span>Daily Sales</span>
-                <span id="daily-sales">4</span>
+                <span id="daily-sales">₱ 0</span>
             </div>
             <div class="box">
                 <span>Completed Orders</span>
-                <span id="orders">4</span>
+                <span id="orders">0</span>
             </div>
         </div>
     </div>
