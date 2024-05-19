@@ -11,6 +11,7 @@ try {
 
         $_SESSION['logged_in'] = false;
         $_SESSION['id'] = '';
+        $_SESSION['account_type'] = '';
 
         echo json_encode(['message' => 'Logout Successful', 'success' => 'true']);
     } else {

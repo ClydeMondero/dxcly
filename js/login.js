@@ -24,7 +24,9 @@ $(document).ready(function () {
             positionClass: "toast-bottom-left",
             // Redirect
             onHidden: function () {
-              window.location.href = "index.php";
+              loginRes.accountType == "admin"
+                ? location.replace("dashboard.php")
+                : location.replace("index.php");
             },
           });
         } else {
