@@ -1,16 +1,16 @@
 $(document).ready(function () {
   $(".dashboard-container").hide();
 
-  fetchUsers();
+  fetchOrders();
 });
 
-function fetchUsers() {
+function fetchOrders() {
   let usersReq = new XMLHttpRequest();
   usersReq.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       let users = JSON.parse(this.responseText);
 
-      displayUsers(users);
+      displayOrders(users);
 
       $("#search").keyup(function () {
         let searchVal = $(this).val().toLowerCase();
@@ -23,7 +23,7 @@ function fetchUsers() {
             user.email.toLowerCase().includes(searchVal)
           );
         });
-        displayUsers(filteredUsers);
+        displayOrders(filteredUsers);
       });
     }
   };
@@ -32,7 +32,7 @@ function fetchUsers() {
   usersReq.send();
 }
 
-function displayUsers(users) {
+function displayOrders(users) {
   $("#users-body").empty();
 
   users.forEach((user) => {

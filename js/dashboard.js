@@ -1,5 +1,7 @@
 $(document).ready(function () {
   fetchData();
+
+  $("#date").val(new Date().toISOString().slice(0, 10));
 });
 
 function fetchData() {
@@ -22,7 +24,7 @@ function fetchData() {
   //orders & sales
   let ordersReq = new XMLHttpRequest();
 
-  ordersReq.onreadystatechange = function () {
+  ordersReq.onreadystatechange = async function () {
     if (this.readyState == 4 && this.status == 200) {
       let orders = JSON.parse(this.responseText);
 
@@ -33,66 +35,68 @@ function fetchData() {
       let sales = getSales(orders);
 
       $("#date").on("change", () => {
-        // Create an empty array to store the sales
-        let salesArray = [];
-
-        // Iterate over the sales object and push each sale into the array
-        for (let sale in sales) {
-          salesArray.push(sales[sale]);
-        }
-
-        let date = new Date($("#date").val());
-
-        // Get the year and month from the date
-        let year = new Date(date).getFullYear();
-        let month = new Date(date).getMonth() + 1; // Months are zero-based
-
-        // Filter the sales array to get sales for the selected month
-        let monthlySales = salesArray
-          .filter((sale) => {
-            let saleYear = new Date(sale.date).getFullYear();
-            let saleMonth = new Date(sale.date).getMonth() + 1;
-            return saleYear === year && saleMonth === month;
-          })
-          .map((sale) => sale.income);
-
-        // Calculate the total income for the month
-        let totalMonthlyIncome = monthlySales.reduce(
-          (total, income) => total + income,
-          0
-        );
-
-        // Filter the sales array to get sales for the selected day
-        let dailySales = salesArray
-          .filter((sale) => {
-            let saleYear = new Date(sale.date).getFullYear();
-            let saleMonth = new Date(sale.date).getMonth() + 1;
-            let saleDay = new Date(sale.date).getDate();
-            return (
-              saleYear === year &&
-              saleMonth === month &&
-              saleDay === new Date(date).getDate()
-            );
-          })
-          .map((sale) => sale.income);
-
-        // Calculate the total income for the day
-        let totalDailyIncome = dailySales.reduce(
-          (total, income) => total + income,
-          0
-        );
-
-        // Display the results
-        $("#monthly-sales").text(
-          "₱ " + totalMonthlyIncome.toLocaleString("en-US")
-        );
-        $("#daily-sales").text("₱ " + totalDailyIncome.toLocaleString("en-US"));
+        getSalesByDate(sales);
       });
     }
   };
 
   ordersReq.open("GET", "api/carts/fetch_sales.php", true);
   ordersReq.send();
+}
+
+function getSalesByDate(sales) {
+  // Create an empty array to store the sales
+  let salesArray = [];
+
+  // Iterate over the sales object and push each sale into the array
+  for (let sale in sales) {
+    salesArray.push(sales[sale]);
+  }
+
+  let date = new Date($("#date").val());
+
+  // Get the year and month from the date
+  let year = new Date(date).getFullYear();
+  let month = new Date(date).getMonth() + 1; // Months are zero-based
+
+  // Filter the sales array to get sales for the selected month
+  let monthlySales = salesArray
+    .filter((sale) => {
+      let saleYear = new Date(sale.date).getFullYear();
+      let saleMonth = new Date(sale.date).getMonth() + 1;
+      return saleYear === year && saleMonth === month;
+    })
+    .map((sale) => sale.income);
+
+  // Calculate the total income for the month
+  let totalMonthlyIncome = monthlySales.reduce(
+    (total, income) => total + income,
+    0
+  );
+
+  // Filter the sales array to get sales for the selected day
+  let dailySales = salesArray
+    .filter((sale) => {
+      let saleYear = new Date(sale.date).getFullYear();
+      let saleMonth = new Date(sale.date).getMonth() + 1;
+      let saleDay = new Date(sale.date).getDate();
+      return (
+        saleYear === year &&
+        saleMonth === month &&
+        saleDay === new Date(date).getDate()
+      );
+    })
+    .map((sale) => sale.income);
+
+  // Calculate the total income for the day
+  let totalDailyIncome = dailySales.reduce(
+    (total, income) => total + income,
+    0
+  );
+
+  // Display the results
+  $("#monthly-sales").text("₱ " + totalMonthlyIncome.toLocaleString("en-US"));
+  $("#daily-sales").text("₱ " + totalDailyIncome.toLocaleString("en-US"));
 }
 
 function getSales(orders) {

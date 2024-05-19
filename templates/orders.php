@@ -14,6 +14,38 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <div class="orders-container">
+        <h2>Orders</h2>
+        <div class="controls">
+            <input type="text" id="search" placeholder="Search">
+            <div class="filter-container">
+                <label for="filter">Filter by Status</label>
+                <select id="filter">
+                    <option value="">All</option>
+                    <option value="To Pay">To Pay</option>
+                    <option value="To Receive">To Receive</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+        </div>
+        <div class="orders-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Buyer Name</th>
+                        <th>Product Name</th>
+                        <th>Product Price</th>
+                        <th>Order Quantity</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-body"></tbody>
+            </table>
+        </div>
+    </div>
+
 
     <script src="js/orders.js"></script>
 </body>
