@@ -35,8 +35,9 @@
                 logout
             </span>
         </div>
+    </div>
 
-        <script src="js/header-admin.js"></script>
+    <script src="js/header-admin.js"></script>
 </body>
 
 </html>

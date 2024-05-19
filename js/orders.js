@@ -1,3 +1,3 @@
 $(document).ready(function () {
-  $(".container").empty();
+  $(".dashboard-container").empty();
 });
