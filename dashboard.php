@@ -36,7 +36,10 @@
                 case 'users':
                     include 'templates/users.php';
                     break;
-                case 'products':
+                case 'view-products':
+                    include 'templates/products.php';
+                    break;
+                case 'create-product':
                     include 'templates/products.php';
                     break;
                 case 'orders':

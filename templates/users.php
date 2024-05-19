@@ -18,7 +18,18 @@
 
     <div class="users-container">
         <h2>Users</h2>
-        <input type="text" id="search" placeholder="Search">
+        <div class="controls">
+            <input type="text" id="search" placeholder="Search" onkeyup="displayUsers()">
+            <div class="filter-container">
+                <label for="filter">Filter by Type</label>
+                <select id="filter" onchange="displayUsers()">
+                    <option value="">All</option>
+                    <option value="GCash">GCash</option>
+                    <option value="Maya">Maya</option>
+                    <option value="Card">Card</option>
+                </select>
+            </div>
+        </div>
         <div class="users-table">
             <table>
                 <thead>

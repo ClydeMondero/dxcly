@@ -4,6 +4,8 @@ $(document).ready(function () {
   fetchOrders();
 });
 
+let orderObjects = [];
+
 function fetchOrders() {
   let orderReq = new XMLHttpRequest();
 
@@ -12,7 +14,7 @@ function fetchOrders() {
       let orders = JSON.parse(this.responseText);
 
       //create a new array of order objects
-      let orderObjects = orders.map((order) => ({
+      orderObjects = orders.map((order) => ({
         id: order.cart_id,
         full_name: "",
         product_name: "",
@@ -43,52 +45,39 @@ function fetchOrders() {
                 orderObjects[index].total_price =
                   product.price * order.cart_quantity;
 
-                displayOrders(orderObjects);
+                displayOrders();
 
-                //filter
-                $("#filter").change(function () {
-                  let sortVal = $(this).val();
-                  let filteredOrders;
+                // //filter
+                // $("#filter").change(function () {
+                //   let filter = $(this).val();
+                //   let filteredOrders;
 
-                  switch (sortVal) {
-                    case "To Pay":
-                      filteredOrders = orderObjects.filter((order) => {
-                        return order.status == "To Pay";
-                      });
+                //   switch (filter) {
+                //     case "To Pay":
+                //       filteredOrders = orderObjects.filter((order) => {
+                //         return order.status == "To Pay";
+                //       });
 
-                      displayOrders(filteredOrders);
-                      break;
-                    case "To Receive":
-                      filteredOrders = orderObjects.filter((order) => {
-                        return order.status == "To Receive";
-                      });
+                //       displayOrders(filteredOrders);
+                //       break;
+                //     case "To Receive":
+                //       filteredOrders = orderObjects.filter((order) => {
+                //         return order.status == "To Receive";
+                //       });
 
-                      displayOrders(filteredOrders);
-                      break;
-                    case "Completed":
-                      filteredOrders = orderObjects.filter((order) => {
-                        return order.status == "Completed";
-                      });
+                //       displayOrders(filteredOrders);
+                //       break;
+                //     case "Completed":
+                //       filteredOrders = orderObjects.filter((order) => {
+                //         return order.status == "Completed";
+                //       });
 
-                      displayOrders(filteredOrders);
-                      break;
-                    default:
-                      displayOrders(orderObjects);
-                  }
-                });
-
-                //search
-                $("#search").keyup(function () {
-                  let searchVal = $(this).val().toLowerCase();
-
-                  let filteredOrders = orderObjects.filter((order) => {
-                    return (
-                      order.full_name.toLowerCase().includes(searchVal) ||
-                      order.product_name.toLowerCase().includes(searchVal)
-                    );
-                  });
-                  displayOrders(filteredOrders);
-                });
+                //       displayOrders(filteredOrders);
+                //       break;
+                //     default:
+                //       displayOrders(orderObjects);
+                //   }
+                // });
               }
             };
 
@@ -107,18 +96,30 @@ function fetchOrders() {
   orderReq.send();
 }
 
-function displayOrders(orders) {
+function displayOrders() {
   $("#orders-body").empty();
 
-  orders.forEach((order) => {
-    let orderTableRow = $("<tr></tr>");
-    orderTableRow.append($("<td></td>").text(order.id));
-    orderTableRow.append($("<td></td>").text(order.full_name));
-    orderTableRow.append($("<td></td>").text(order.product_name));
-    orderTableRow.append($("<td></td>").text(order.product_price));
-    orderTableRow.append($("<td></td>").text(order.quantity));
-    orderTableRow.append($("<td></td>").text(order.total_price));
-    orderTableRow.append($("<td></td>").text(order.status));
-    $("#orders-body").append(orderTableRow);
+  let searchVal = $("#search").val().toLowerCase();
+
+  let filterTerm = $("#filter").val();
+
+  orderObjects.forEach((order) => {
+    if (
+      order.full_name.toLowerCase().includes(searchVal) ||
+      order.product_name.toLowerCase().includes(searchVal) ||
+      !searchVal
+    ) {
+      if (filterTerm == order.status || !filterTerm) {
+        let orderTableRow = $("<tr></tr>");
+        orderTableRow.append($("<td></td>").text(order.id));
+        orderTableRow.append($("<td></td>").text(order.full_name));
+        orderTableRow.append($("<td></td>").text(order.product_name));
+        orderTableRow.append($("<td></td>").text(order.product_price));
+        orderTableRow.append($("<td></td>").text(order.quantity));
+        orderTableRow.append($("<td></td>").text(order.total_price));
+        orderTableRow.append($("<td></td>").text(order.status));
+        $("#orders-body").append(orderTableRow);
+      }
+    }
   });
 }

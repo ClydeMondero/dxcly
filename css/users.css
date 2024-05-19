@@ -17,6 +17,17 @@
   width: 20%;
 }
 
+.users-container .controls {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-container select {
+  padding: 0.8rem;
+  background-color: var(--light-gray);
+}
+
 .users-table {
   width: 100%;
   overflow-y: scroll;

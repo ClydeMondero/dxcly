@@ -19,9 +19,13 @@
                 <a href="dashboard.php?page=users">Users</a>
                 <hr />
             </span>
-            <span>
-                <span><a href="dashboard.php?page=products">Products</a></span>
+            <span class="dropdown-container">
+                Products
                 <hr />
+                <div class="dropdown">
+                    <span><a href="dashboard.php?page=create-product">Add New Product</a></span>
+                    <span><a href="dashboard.php?page=view-products">View Products</a></span>
+                </div>
             </span>
             <span>
                 <span><a href="dashboard.php?page=orders">Orders</a></span>

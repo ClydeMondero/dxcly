@@ -24,7 +24,31 @@ $(document).ready(function () {
   });
 
   $("#logout-button").click(logoutHandler);
+
+  dropdownHandler();
 });
+
+function dropdownHandler() {
+  let dropdown = $(".dropdown");
+  let dropdownContainer = $(".dropdown-container");
+
+  dropdown.hide();
+
+  dropdownContainer.hover(
+    (event) => {
+      let hoveredDropdown = $(event.target).find(".dropdown");
+      hoveredDropdown.show();
+    },
+    (event) => {
+      let hoveredDropdown = $(event.target).find(".dropdown");
+      hoveredDropdown.hide();
+    }
+  );
+
+  dropdown.mouseleave(() => {
+    dropdown.hide();
+  });
+}
 
 function logoutHandler() {
   let logoutReq = new XMLHttpRequest();

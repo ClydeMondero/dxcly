@@ -17,10 +17,10 @@
     <div class="orders-container">
         <h2>Orders</h2>
         <div class="controls">
-            <input type="text" id="search" placeholder="Search">
+            <input type="text" id="search" placeholder="Search" onkeyup="displayOrders()">
             <div class="filter-container">
                 <label for="filter">Filter by Status</label>
-                <select id="filter">
+                <select id="filter" onchange="displayOrders()">
                     <option value="">All</option>
                     <option value="To Pay">To Pay</option>
                     <option value="To Receive">To Receive</option>
