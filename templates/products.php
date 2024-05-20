@@ -55,8 +55,9 @@
                 <tbody id="products-body"></tbody>
             </table>
         </div>
+    </div>
 
-        <script src="js/products-admin.js"></script>
+    <script src="js/products-admin.js"></script>
 </body>
 
 </html>
