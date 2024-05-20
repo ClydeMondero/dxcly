@@ -18,30 +18,34 @@
         <h2>Products</h2>
         <div class="controls">
             <input type="text" id="search" placeholder="Search" onkeyup="displayProducts()">
-            <div class="filter-container">
-                <label for="filter">Filter by Type</label>
-                <select id="filter" onchange="displayProducts()">
-                    <option value="">All</option>
-                    <option value="jackets">Jackets</option>
-                    <option value="hoodies">Hoodies</option>
-                    <option value="vest">Vest</option>
-                    <option value="pants">Pants</option>
-                    <option value="shirts">Shirts</option>
-                    <option value="cloaks">Cloaks</option>
-                    <option value="shorts">Shorts</option>
-                    <option value="footwear">Footwear</option>
-                    <option value="hats">Hats</option>
-                    <option value="masks">Masks</option>
-                    <option value="belts">Belts</option>
-                    <option value="gloves">Gloves</option>
-                    <option value="backpacks">Backpacks</option>
-                </select>
+            <div class="left">
+                <button type="button" id="delete-button" onclick="deleteProducts()">Delete Selected Products</button>
+                <div class="filter-container">
+                    <label for="filter">Filter by Type</label>
+                    <select id="filter" onchange="displayProducts()">
+                        <option value="">All</option>
+                        <option value="jackets">Jackets</option>
+                        <option value="hoodies">Hoodies</option>
+                        <option value="vest">Vest</option>
+                        <option value="pants">Pants</option>
+                        <option value="shirts">Shirts</option>
+                        <option value="cloaks">Cloaks</option>
+                        <option value="shorts">Shorts</option>
+                        <option value="footwear">Footwear</option>
+                        <option value="hats">Hats</option>
+                        <option value="masks">Masks</option>
+                        <option value="belts">Belts</option>
+                        <option value="gloves">Gloves</option>
+                        <option value="backpacks">Backpacks</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="products-table">
             <table>
                 <thead>
                     <tr>
+                        <th><input type="checkbox" id="select-all"></th>
                         <th>ID</th>
                         <th>Product Name</th>
                         <th>Image</th>

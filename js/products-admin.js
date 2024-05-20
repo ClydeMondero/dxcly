@@ -32,6 +32,10 @@ function displayProducts() {
     if (product.name.toLowerCase().includes(searchVal) || !searchVal) {
       if (filterTerm == product.type.toLowerCase() || !filterTerm) {
         let productTableRow = $("<tr></tr>");
+        let checkbox = $("<td></td>").append(
+          $("<input>").attr("type", "checkbox").addClass("product-checkbox")
+        );
+        productTableRow.append(checkbox);
         productTableRow.append($("<td></td>").text(product.id));
         productTableRow.append($("<td></td>").text(product.name));
         productTableRow.append(
@@ -73,6 +77,37 @@ function displayProducts() {
       }
     }
   });
+
+  $("#select-all").change(function () {
+    if ($(this).is(":checked")) {
+      $(".product-checkbox").prop("checked", true);
+      $("#delete-button").css("display", "block");
+    } else {
+      $(".product-checkbox").prop("checked", false);
+      $("#delete-button").css("display", "none");
+    }
+  });
+
+  $(".product-checkbox").click(function () {
+    if ($(this).is(":checked")) {
+      $("#delete-button").css("display", "block");
+    } else {
+      $("#delete-button").css("display", "none");
+    }
+  });
+}
+
+function deleteProducts() {
+  let selectedProductCheckboxes = $(".product-checkbox:checked");
+  selectedProductCheckboxes.each(function () {
+    let productTableRow = $(this).closest("tr");
+    let idColumn = productTableRow.find("td:nth-child(2)").text();
+
+    deleteProduct(idColumn);
+  });
+
+  $("#delete-button").css("display", "none");
+  $("#select-all").prop("checked", false);
 }
 
 function deleteProduct(id) {
