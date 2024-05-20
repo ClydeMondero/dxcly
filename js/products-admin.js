@@ -2,11 +2,6 @@ $(document).ready(function () {
   $(".dashboard-container").hide();
 
   fetchOrders();
-
-  //TODO: Edit
-  //TODO: Delete
-  //TODO: Filter
-  //TODO: Archive
 });
 
 let products = [];
@@ -50,7 +45,11 @@ function displayProducts() {
         let editBtn = $("<span>")
           .text("edit")
           .addClass("material-symbols-outlined")
-          .attr("id", "edit-btn");
+          .attr("id", "edit-btn")
+          .click(function () {
+            window.location.href =
+              "dashboard.php?page=edit-product&id=" + product.id;
+          });
 
         let deleteBtn = $("<span>")
           .text("delete")
@@ -65,6 +64,10 @@ function displayProducts() {
         actions.append([editBtn, deleteBtn]);
 
         productTableRow.append($("<td></td>").append(actions));
+
+        if (product.quantity == 0) {
+          productTableRow.css("opacity", "0.5");
+        }
 
         $("#products-body").append(productTableRow);
       }
