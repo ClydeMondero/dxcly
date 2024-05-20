@@ -38,6 +38,7 @@ function displayUsers() {
         userTableRow.append($("<td></td>").text(user.address));
         userTableRow.append($("<td></td>").text(user.contact_number));
         userTableRow.append($("<td></td>").text(user.payment_method));
+
         $("#users-body").append(userTableRow);
       }
     }

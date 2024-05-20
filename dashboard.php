@@ -40,7 +40,7 @@
                     include 'templates/products.php';
                     break;
                 case 'create-product':
-                    include 'templates/products.php';
+                    include 'templates/create-product.php';
                     break;
                 case 'orders':
                     include 'templates/orders.php';

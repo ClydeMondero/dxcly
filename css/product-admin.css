@@ -84,3 +84,13 @@
   background-color: var(--dark-gray);
   color: #fff;
 }
+
+.products-container .actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.actions span {
+  cursor: pointer;
+}

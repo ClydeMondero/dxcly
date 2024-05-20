@@ -46,8 +46,59 @@ function displayProducts() {
         productTableRow.append($("<td></td>").text(product.type));
         productTableRow.append($("<td></td>").text(product.description));
         productTableRow.append($("<td></td>").text(product.quantity));
+
+        let editBtn = $("<span>")
+          .text("edit")
+          .addClass("material-symbols-outlined")
+          .attr("id", "edit-btn");
+
+        let deleteBtn = $("<span>")
+          .text("delete")
+          .addClass("material-symbols-outlined")
+          .attr("id", "delete-btn")
+          .click(function () {
+            deleteProduct(product.id);
+          });
+
+        let actions = $("<div>").addClass("actions");
+
+        actions.append([editBtn, deleteBtn]);
+
+        productTableRow.append($("<td></td>").append(actions));
+
         $("#products-body").append(productTableRow);
       }
     }
   });
+}
+
+function deleteProduct(id) {
+  let deleteReq = new XMLHttpRequest();
+
+  deleteReq.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let deleteRes = JSON.parse(this.responseText);
+
+      if (deleteRes.success == true) {
+        toastr.success(deleteRes.message, "Success", {
+          timeOut: 2000,
+          preventDuplicates: true,
+          positionClass: "toast-bottom-left",
+          // Redirect
+          onHidden: function () {
+            fetchOrders();
+          },
+        });
+      } else {
+        toastr.error(deleteRes.message, "Failed", {
+          timeOut: 2000,
+          preventDuplicates: true,
+          positionClass: "toast-bottom-left",
+        });
+      }
+    }
+  };
+
+  deleteReq.open("DELETE", "api/products/delete.php", true);
+  deleteReq.send(JSON.stringify({ id: id }));
 }
