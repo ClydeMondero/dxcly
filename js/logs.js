@@ -81,6 +81,8 @@ function downloadPDF() {
     doc.text(dateText, dateX, dateY);
   }
 
+  $("#logs-body tr").show();
+
   // Calculate the x and y position for the total sales
   doc.autoTable({
     html: "#logs-table",
@@ -97,6 +99,10 @@ function downloadPDF() {
   } else {
     doc.save("Overall Logs Reports.pdf");
   }
+
+  // Restore pagination
+  $("#logs-body tr").slice(6).hide();
+  $("#pagination").pagination("redraw");
 }
 
 function displayLogs() {

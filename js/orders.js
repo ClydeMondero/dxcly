@@ -65,6 +65,8 @@ function downloadPDF() {
     doc.text(dateText, dateX, dateY);
   }
 
+  $("#orders-body tr").show();
+
   // Calculate the x and y position for the total sales
   doc.autoTable({
     html: "#orders-table",
@@ -93,6 +95,10 @@ function downloadPDF() {
   } else {
     doc.save("Overall Sales/Orders Reports.pdf");
   }
+
+  // Restore pagination
+  $("#orders-body tr").slice(8).hide();
+  $("#pagination").pagination("redraw");
 }
 
 let orderObjects = [];

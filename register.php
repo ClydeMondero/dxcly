@@ -63,6 +63,7 @@
                                 </div>
                                 <input type="password" id="confirm-password" required minlength="8">
                             </div>
+                            <p>By creating an account you agree to our <a href="terms.php">Terms & Privacy</a></p>
                     </div>
                 </div>
                 <button type="button" id="register-button">Sign Up</button>

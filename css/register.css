@@ -101,6 +101,14 @@
   gap: 1rem;
 }
 
+.account-details p {
+  font-size: 0.8rem;
+}
+
+.account-details p a {
+  color: var(--light-gray);
+}
+
 .personal-details {
   width: 40%;
   display: flex;
