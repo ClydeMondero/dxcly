@@ -20,6 +20,85 @@ function fetchLogs() {
   logsReq.send();
 }
 
+function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  let date = $("#date").val();
+  const selectedDate = new Date(date);
+
+  // Calculate the margin for the image
+  const imageMargin = 10;
+
+  // Calculate the width and height of the image
+  const imageWidth = 50;
+  const imageHeight = 20;
+
+  // Calculate the x and y positions for the image
+  const imageX = (doc.internal.pageSize.width - imageWidth) / 2;
+  const imageY = 10 + (imageHeight - imageMargin) / 2;
+
+  doc.addImage(
+    "assets/logo.png",
+    "PNG",
+    imageX,
+    imageY,
+    imageWidth,
+    imageHeight
+  );
+
+  // Add a margin between the table and the image
+  const tableMargin = 10;
+
+  // Calculate the y position for the header
+  const headerY = imageY + imageHeight + tableMargin;
+
+  // Set the font size and style for the header
+  doc.setFontSize(16);
+  doc.setFont("helvetica", "bold");
+
+  // Calculate the width of the header text
+  const headerTextWidth = doc.getTextWidth("Logs Reports");
+
+  // Calculate the x position for the header to center it
+  const headerX = (doc.internal.pageSize.width - headerTextWidth) / 2;
+
+  // Add the header text
+  doc.text("Logs Reports", headerX, headerY);
+
+  // Calculate the y position for the date
+  const dateY = headerY + 10;
+
+  // Set the font size and style for the date
+  doc.setFontSize(12);
+  doc.setFont("helvetica", "normal");
+
+  // Add the selected date below the header, centered and smaller
+  if (date) {
+    const dateText = `${selectedDate.toLocaleDateString()}`;
+    const dateTextWidth = doc.getTextWidth(dateText);
+    const dateX = (doc.internal.pageSize.width - dateTextWidth) / 2;
+    doc.text(dateText, dateX, dateY);
+  }
+
+  // Calculate the x and y position for the total sales
+  doc.autoTable({
+    html: "#logs-table",
+    startY: dateY + 10, // Add a margin below the header
+    headStyles: { fillColor: [0, 0, 0] },
+  });
+
+  if (date) {
+    doc.save(
+      `Monthly and Yearly Logs Reports (${
+        selectedDate.getMonth() + 1
+      }-${selectedDate.getFullYear()}).pdf`
+    );
+  } else {
+    doc.save("Overall Logs Reports.pdf");
+  }
+}
+
 function displayLogs() {
   $("#logs-body").empty();
 

@@ -29,6 +29,19 @@
   gap: 1rem;
 }
 
+#download-button {
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.8rem;
+  transition: ease-out 0.4s;
+  box-shadow: inset 0 0 0 0 #fff;
+  background-color: #000;
+  border: none;
+  color: #fff;
+}
+
 .date-container {
   display: flex;
   align-items: center;
@@ -55,20 +68,20 @@
   background-color: var(--light-gray);
 }
 
-.logs-table {
+.table-container {
   width: 100%;
   overflow-y: scroll;
 }
 
-.logs-table::-webkit-scrollbar {
+.table-container::-webkit-scrollbar {
   width: 0.6rem;
 }
 
-.logs-table::-webkit-scrollbar-track {
+.table-container::-webkit-scrollbar-track {
   background-color: var(--dark);
 }
 
-.logs-table::-webkit-scrollbar-thumb {
+.table-container::-webkit-scrollbar-thumb {
   background-color: var(--light-gray);
 }
 
