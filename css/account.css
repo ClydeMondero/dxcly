@@ -304,7 +304,7 @@
   height: 250px;
 }
 
-.payment-modal-container {
+.payment-modal .modal-container {
   height: 50%;
   width: 50%;
   background-color: #fff;
