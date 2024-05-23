@@ -7,7 +7,9 @@ $(document).ready(function () {
 
     //get url params
     const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("id");
+    let id = urlParams.get("id");
+
+    id = id.substring(6);
 
     let changeReq = new XMLHttpRequest();
 

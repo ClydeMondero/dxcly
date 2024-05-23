@@ -74,7 +74,8 @@ $(document).ready(function () {
         let findEmailRes = JSON.parse(this.responseText);
 
         if (findEmailRes.success == true) {
-          window.location.href = "reset_password.php?id=" + findEmailRes.id;
+          window.location.href =
+            "reset_password.php?id=$2y$10" + findEmailRes.id + "./1TcIo92zG";
         } else {
           toastr.error(findEmailRes.message, "Failed", {
             timeOut: 2000,
