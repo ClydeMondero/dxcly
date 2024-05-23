@@ -55,7 +55,6 @@
             </div>
 
             <div class="right">
-                <span class="material-symbols-outlined"> search </span>
                 <span id="cart-btn" class="material-symbols-outlined"> shopping_bag </span>
                 <a class="pfp" href="utils/redirect.php">
                     <img id="profile-picture" src="assets/default-pfp.png" alt="">

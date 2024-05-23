@@ -161,6 +161,19 @@ $(document).ready(function () {
       }
     });
 
+    $(".products-collection .product").slice(4).hide();
+    $("#pagination").pagination({
+      items: results,
+      itemsOnPage: 4,
+      cssStyle: "dark-theme",
+      onPageClick: function (pageNumber) {
+        $(".products-collection .product").hide();
+        $(".products-collection .product")
+          .slice((pageNumber - 1) * 4, pageNumber * 4)
+          .show();
+      },
+    });
+
     $(".number-of-products").text(results + " Results");
   }
 });
