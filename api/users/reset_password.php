@@ -7,7 +7,7 @@ header('Content-type: application/json');
 try {
     $data = json_decode(file_get_contents('php://input'), true);
     $id = $data['id'];
-    $password = $data['password'];
+    $password = password_hash($data['password'], PASSWORD_DEFAULT);
     $current_password = $pdo->query("SELECT password FROM users WHERE id = '$id'")->fetch()['password'];
     $username = $pdo->query("SELECT username FROM users WHERE id = '$id'")->fetch()['username'];
     $accountType = $pdo->query("SELECT account_type FROM users WHERE id = '$id'")->fetch()['account_type'];

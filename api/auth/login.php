@@ -14,7 +14,7 @@ try {
     session_start();
 
     foreach ($users as $user) {
-        if ($user['email'] === $email && $user['password'] === $password) {
+        if ($user['email'] === $email && password_verify($password, $user['password'])) {
             $_SESSION['id'] = $user['id'];
             $_SESSION['logged_in'] = true;
             $_SESSION['account_type'] = $user['account_type'];

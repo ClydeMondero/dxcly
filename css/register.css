@@ -70,6 +70,11 @@
   color: white;
 }
 
+.input-password {
+  display: flex;
+  align-items: center;
+}
+
 .login {
   align-self: center;
   text-decoration: underline;
@@ -101,4 +106,9 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.no-hover {
+  pointer-events: none;
+  opacity: 0.5;
 }

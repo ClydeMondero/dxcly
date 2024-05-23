@@ -1,4 +1,40 @@
 $(document).ready(function () {
+  $("#password").on("input", function () {
+    if ($("#password").val() == "") {
+      $("#password-match").text("").css();
+      $("#register-button").prop("disabled", true).addClass("no-hover");
+    }
+
+    if ($("#password").val() == $("#confirm-password").val()) {
+      $(".input-password").css("justify-content", "space-between");
+      $("#password-match").text("Password match").css("color", "green");
+
+      $("#register-button").prop("disabled", false).removeClass("no-hover");
+    } else {
+      $(".input-password").css("justify-content", "space-between");
+      $("#password-match").text("Password does not match").css("color", "red");
+      $("#register-button").prop("disabled", true).addClass("no-hover");
+    }
+  });
+
+  $("#confirm-password").on("input", function () {
+    if ($("#confirm-password").val() == "") {
+      $("#password-match").text("").css();
+      $("#register-button").prop("disabled", true).addClass("no-hover");
+    }
+
+    if ($("#password").val() == $("#confirm-password").val()) {
+      $(".input-password").css("justify-content", "space-between");
+      $("#password-match").text("Password match").css("color", "green");
+
+      $("#register-button").prop("disabled", false).removeClass("no-hover");
+    } else {
+      $(".input-password").css("justify-content", "space-between");
+      $("#password-match").text("Password does not match").css("color", "red");
+      $("#register-button").prop("disabled", true).addClass("no-hover");
+    }
+  });
+
   $("#register-button").click(() => {
     if (!$(".register")[0].checkValidity()) {
       $(".register")[0].reportValidity();

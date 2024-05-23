@@ -57,7 +57,10 @@
                             </div>
 
                             <div class="input">
-                                <label for="confirm-password">Confirm Password</label>
+                                <div class="input-password">
+                                    <label for="confirm-password">Confirm Password</label>
+                                    <span id="password-match"></span>
+                                </div>
                                 <input type="password" id="confirm-password" required minlength="8">
                             </div>
                     </div>

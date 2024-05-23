@@ -12,6 +12,7 @@ try {
     $contactNumber = $data['contact'];
     $username = $data['username'];
     $password = $data['password'];
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $account_type = 'buyer';
 
     $stmtEmail = $pdo->prepare('SELECT * FROM users WHERE email = ? LIMIT 1');
@@ -30,7 +31,7 @@ try {
         }
     } else {
         $stmt = $pdo->prepare('INSERT INTO users (full_name, address, email, contact_number, username, password, account_type) VALUES (?, ?, ?, ?, ?, ?, ?)');
-        $stmt->execute([$fullName, $address, $email, $contactNumber, $username, $password, $account_type]);
+        $stmt->execute([$fullName, $address, $email, $contactNumber, $username, $hashedPassword, $account_type]);
 
         echo json_encode(['message' => 'Sign up successful', 'success' => true]);
     }
