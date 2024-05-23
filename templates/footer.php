@@ -47,7 +47,6 @@
                     <span>Techwear</span>
                     <span>Contact Us</span>
                     <span>Shipping Policty</span>
-                    <span>Returns Policty</span>
                     <span>Legal Notice</span>
                     <span>Terms Of Sale</span>
                     <span>Privacy Policy</span>

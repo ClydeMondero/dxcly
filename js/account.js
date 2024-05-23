@@ -30,6 +30,8 @@ $(document).ready(function (e) {
   });
 });
 
+let orders;
+
 function getOrders() {
   let checkUserReq = new XMLHttpRequest();
 
@@ -41,9 +43,9 @@ function getOrders() {
 
       ordersReq.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          let orders = JSON.parse(this.responseText);
+          orders = JSON.parse(this.responseText);
 
-          displayOrders(orders);
+          displayOrders();
         }
       };
 
@@ -56,7 +58,7 @@ function getOrders() {
   checkUserReq.send();
 }
 
-function displayOrders(orders) {
+function displayOrders() {
   let container = $(".orders");
 
   container.empty();
@@ -172,19 +174,25 @@ function displayOrders(orders) {
           });
         }
 
-        imageContainer.append([orderImage]);
+        if ($("#filter").val() == order.status || !$("#filter").val()) {
+          imageContainer.append([orderImage]);
 
-        nameContainer.append([orderName, orderStatus]);
+          nameContainer.append([orderName, orderStatus]);
 
-        pricesContainer.append([orderPrice, orderQuantity, orderTotal]);
+          pricesContainer.append([orderPrice, orderQuantity, orderTotal]);
 
-        optionsContainer.append([orderDate, deliveredDate, orderBtn]);
+          optionsContainer.append([orderDate, deliveredDate, orderBtn]);
 
-        orderDetails.append([nameContainer, pricesContainer, optionsContainer]);
+          orderDetails.append([
+            nameContainer,
+            pricesContainer,
+            optionsContainer,
+          ]);
 
-        orderElement.append([imageContainer, orderDetails]);
+          orderElement.append([imageContainer, orderDetails]);
 
-        container.append([orderElement]);
+          container.append([orderElement]);
+        }
 
         if (order.status == "To Receive") {
           setTimeout(() => {

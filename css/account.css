@@ -64,6 +64,12 @@
   align-items: center;
 }
 
+#filter {
+  align-self: end;
+  padding: 0.8rem;
+  background-color: var(--light-gray);
+}
+
 .orders {
   margin-top: 2rem;
   width: 100%;

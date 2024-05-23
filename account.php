@@ -34,6 +34,12 @@
                         <h2>
                             Your Orders
                         </h2>
+                        <select id="filter" onchange="displayOrders()">
+                            <option value="">All</option>
+                            <option value="To Pay">To Pay</option>
+                            <option value="To Receive">To Receive</option>
+                            <option value="Completed">Completed</option>
+                        </select>
                         <div class="orders"></div>
                     </div>
                     <div class="account-details">
