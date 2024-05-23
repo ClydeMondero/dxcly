@@ -27,7 +27,7 @@
             <span class="material-icons">
                 thumb_up
             </span>
-            <h4>EASY RETURNS</h4>
+            <h4>QUALITY PRODUCTS</h4>
         </div>
         <div class="service">
             <span class="material-icons">
@@ -48,7 +48,7 @@
                     <span>Contact Us</span>
                     <span>Shipping Policty</span>
                     <span>Legal Notice</span>
-                    <span>Terms Of Sale</span>
+                    <a href="terms.php"><span>Terms Of Sale</span></a>
                     <span>Privacy Policy</span>
                 </div>
                 <div class="top-content">
