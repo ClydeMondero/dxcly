@@ -13,14 +13,23 @@
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+
 
     <div class="orders-container">
-        <h2>Orders</h2>
+        <h2>Sales / Orders</h2>
         <div class="controls">
             <input type="text" id="search" placeholder="Search" onkeyup="displayOrders()">
             <div class="filters">
+                <button id="download-button" onclick="downloadPDF()">
+                    Download
+                    <span class="material-symbols-outlined">
+                        download
+                    </span>
+                </button>
                 <div class="date-container">
-                    <label for="date">Filter By Month</label>
+                    <label for="date">Filter By Date</label>
                     <input type="month" name="date" id="date" onchange="displayOrders()">
                 </div>
                 <div class="filter-container">
@@ -34,8 +43,8 @@
                 </div>
             </div>
         </div>
-        <div class="orders-table">
-            <table>
+        <div class="table-container">
+            <table id="orders-table">
                 <thead>
                     <tr>
                         <th>ID</th>
