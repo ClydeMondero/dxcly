@@ -22,6 +22,7 @@ function fetchOrders() {
         quantity: order.cart_quantity,
         status: order.status,
         total_price: 0,
+        date: order.received_date,
       }));
 
       let fullName;
@@ -46,38 +47,6 @@ function fetchOrders() {
                   product.price * order.cart_quantity;
 
                 displayOrders();
-
-                // //filter
-                // $("#filter").change(function () {
-                //   let filter = $(this).val();
-                //   let filteredOrders;
-
-                //   switch (filter) {
-                //     case "To Pay":
-                //       filteredOrders = orderObjects.filter((order) => {
-                //         return order.status == "To Pay";
-                //       });
-
-                //       displayOrders(filteredOrders);
-                //       break;
-                //     case "To Receive":
-                //       filteredOrders = orderObjects.filter((order) => {
-                //         return order.status == "To Receive";
-                //       });
-
-                //       displayOrders(filteredOrders);
-                //       break;
-                //     case "Completed":
-                //       filteredOrders = orderObjects.filter((order) => {
-                //         return order.status == "Completed";
-                //       });
-
-                //       displayOrders(filteredOrders);
-                //       break;
-                //     default:
-                //       displayOrders(orderObjects);
-                //   }
-                // });
               }
             };
 
@@ -103,22 +72,33 @@ function displayOrders() {
 
   let filterTerm = $("#filter").val();
 
+  let date = $("#date").val();
+  const selectedDate = new Date(date);
+
   orderObjects.forEach((order) => {
+    const orderDate = new Date(order.date);
+
     if (
       order.full_name.toLowerCase().includes(searchVal) ||
       order.product_name.toLowerCase().includes(searchVal) ||
       !searchVal
     ) {
       if (filterTerm == order.status || !filterTerm) {
-        let orderTableRow = $("<tr></tr>");
-        orderTableRow.append($("<td></td>").text(order.id));
-        orderTableRow.append($("<td></td>").text(order.full_name));
-        orderTableRow.append($("<td></td>").text(order.product_name));
-        orderTableRow.append($("<td></td>").text(order.product_price));
-        orderTableRow.append($("<td></td>").text(order.quantity));
-        orderTableRow.append($("<td></td>").text(order.total_price));
-        orderTableRow.append($("<td></td>").text(order.status));
-        $("#orders-body").append(orderTableRow);
+        if (
+          (orderDate.getMonth() === selectedDate.getMonth() &&
+            orderDate.getFullYear() === selectedDate.getFullYear()) ||
+          !date
+        ) {
+          let orderTableRow = $("<tr></tr>");
+          orderTableRow.append($("<td></td>").text(order.id));
+          orderTableRow.append($("<td></td>").text(order.full_name));
+          orderTableRow.append($("<td></td>").text(order.product_name));
+          orderTableRow.append($("<td></td>").text(order.product_price));
+          orderTableRow.append($("<td></td>").text(order.quantity));
+          orderTableRow.append($("<td></td>").text(order.total_price));
+          orderTableRow.append($("<td></td>").text(order.status));
+          $("#orders-body").append(orderTableRow);
+        }
       }
     }
   });

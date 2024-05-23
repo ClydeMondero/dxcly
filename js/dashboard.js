@@ -1,7 +1,5 @@
 $(document).ready(function () {
   fetchData();
-
-  $("#date").val(new Date().toISOString().slice(0, 10));
 });
 
 function fetchData() {
@@ -32,7 +30,7 @@ function fetchData() {
 
       $("#orders").text(numberOfOrders);
 
-      let sales = getSales(orders);
+      sales = getSales(orders);
 
       $("#date").on("change", () => {
         getSalesByDate(sales);

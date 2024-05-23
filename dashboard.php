@@ -55,7 +55,10 @@
         <div class="dashboard-container">
             <h2>Dashboard</h2>
 
-            <input type="date" id="date">
+            <div class="date-container">
+                <label for="date">Select Date: </label>
+                <input type="date" id="date" name="date">
+            </div>
 
             <div class="boxes">
                 <div class="box">

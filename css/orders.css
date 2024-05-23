@@ -40,6 +40,27 @@
   justify-content: space-between;
 }
 
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.date-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.date-container input {
+  width: 50%;
+  padding: 0.8rem;
+}
+
+#date {
+  background-color: var(--light-gray);
+}
+
 .orders-container .filter-container {
   height: 100%;
   display: flex;

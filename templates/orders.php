@@ -18,14 +18,20 @@
         <h2>Orders</h2>
         <div class="controls">
             <input type="text" id="search" placeholder="Search" onkeyup="displayOrders()">
-            <div class="filter-container">
-                <label for="filter">Filter by Status</label>
-                <select id="filter" onchange="displayOrders()">
-                    <option value="">All</option>
-                    <option value="To Pay">To Pay</option>
-                    <option value="To Receive">To Receive</option>
-                    <option value="Completed">Completed</option>
-                </select>
+            <div class="filters">
+                <div class="date-container">
+                    <label for="date">Filter By Month</label>
+                    <input type="month" name="date" id="date" onchange="displayOrders()">
+                </div>
+                <div class="filter-container">
+                    <label for="filter">Filter by Status</label>
+                    <select id="filter" onchange="displayOrders()">
+                        <option value="">All</option>
+                        <option value="To Pay">To Pay</option>
+                        <option value="To Receive">To Receive</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="orders-table">

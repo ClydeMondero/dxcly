@@ -26,8 +26,14 @@
   color: var(--gray);
 }
 
-#date {
+.date-container {
   align-self: end;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#date {
   padding: 1rem;
   background-color: var(--gray);
   color: #fff;
