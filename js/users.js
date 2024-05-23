@@ -27,6 +27,8 @@ function displayUsers() {
 
   let filterTerm = $("#filter").val();
 
+  let results = 0;
+
   users.forEach((user) => {
     if (user.full_name.toLowerCase().includes(searchVal) || !searchVal) {
       if (filterTerm == user.payment_method || !filterTerm) {
@@ -40,7 +42,22 @@ function displayUsers() {
         userTableRow.append($("<td></td>").text(user.payment_method));
 
         $("#users-body").append(userTableRow);
+
+        results++;
       }
     }
+  });
+
+  $("#users-body tr").slice(6).hide();
+  $("#pagination").pagination({
+    items: results,
+    itemsOnPage: 6,
+    cssStyle: "dark-theme",
+    onPageClick: function (pageNumber) {
+      $("#users-body tr").hide();
+      $("#users-body tr")
+        .slice((pageNumber - 1) * 6, pageNumber * 6)
+        .show();
+    },
   });
 }

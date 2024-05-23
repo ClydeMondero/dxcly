@@ -109,6 +109,7 @@ function displayLogs() {
   let date = $("#date").val();
   const selectedDate = new Date(date);
 
+  let results = 0;
   logs.forEach((log) => {
     const logDate = new Date(log.log_date);
 
@@ -127,8 +128,22 @@ function displayLogs() {
           logsTableRow.append($("<td></td>").text(log.log_date));
 
           $("#logs-body").append(logsTableRow);
+          results++;
         }
       }
     }
+  });
+
+  $("#logs-body tr").slice(6).hide();
+  $("#pagination").pagination({
+    items: results,
+    itemsOnPage: 6,
+    cssStyle: "dark-theme",
+    onPageClick: function (pageNumber) {
+      $("#logs-body tr").hide();
+      $("#logs-body tr")
+        .slice((pageNumber - 1) * 6, pageNumber * 6)
+        .show();
+    },
   });
 }

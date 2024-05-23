@@ -28,6 +28,8 @@ function displayProducts() {
 
   let filterTerm = $("#filter").val();
 
+  let results = 0;
+
   products.forEach((product) => {
     if (product.name.toLowerCase().includes(searchVal) || !searchVal) {
       if (filterTerm == product.type.toLowerCase() || !filterTerm) {
@@ -74,8 +76,22 @@ function displayProducts() {
         }
 
         $("#products-body").append(productTableRow);
+        results++;
       }
     }
+  });
+
+  $("#products-body tr").slice(3).hide();
+  $("#pagination").pagination({
+    items: results,
+    itemsOnPage: 3,
+    cssStyle: "dark-theme",
+    onPageClick: function (pageNumber) {
+      $("#products-body tr").hide();
+      $("#products-body tr")
+        .slice((pageNumber - 1) * 3, pageNumber * 3)
+        .show();
+    },
   });
 
   $("#select-all").change(function () {

@@ -170,6 +170,8 @@ function displayOrders() {
   let date = $("#date").val();
   const selectedDate = new Date(date);
 
+  let results = 0;
+
   orderObjects.forEach((order) => {
     const orderDate = new Date(order.date);
 
@@ -195,8 +197,23 @@ function displayOrders() {
           orderTableRow.append($("<td></td>").text(order.total_price));
           orderTableRow.append($("<td></td>").text(order.status));
           $("#orders-body").append(orderTableRow);
+
+          results++;
         }
       }
     }
+  });
+
+  $("#orders-body tr").slice(8).hide();
+  $("#pagination").pagination({
+    items: results,
+    itemsOnPage: 8,
+    cssStyle: "dark-theme",
+    onPageClick: function (pageNumber) {
+      $("#orders-body tr").hide();
+      $("#orders-body tr")
+        .slice((pageNumber - 1) * 8, pageNumber * 8)
+        .show();
+    },
   });
 }
