@@ -45,6 +45,9 @@
                 case 'edit-product':
                     include 'templates/edit-product.php';
                     break;
+                case 'logs':
+                    include 'templates/logs.php';
+                    break;
 
                 case 'orders':
                     include 'templates/orders.php';

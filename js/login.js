@@ -17,6 +17,7 @@ $(document).ready(function () {
     loginReq.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         let loginRes = JSON.parse(this.responseText);
+
         if (loginRes.success == "true") {
           toastr.success(loginRes.message, "Success", {
             timeOut: 2000,
@@ -24,9 +25,26 @@ $(document).ready(function () {
             positionClass: "toast-bottom-left",
             // Redirect
             onHidden: function () {
-              loginRes.accountType == "admin"
-                ? location.replace("dashboard.php")
-                : location.replace("index.php");
+              if (loginRes.accountType == "admin") {
+                location.replace("dashboard.php");
+              } else {
+                let logReq = new XMLHttpRequest();
+
+                logReq.onreadystatechange = function () {
+                  if (this.readyState == 4 && this.status == 200) {
+                    location.replace("index.php");
+                  }
+                };
+
+                logReq.open("POST", "api/logs/add.php", true);
+                logReq.send(
+                  JSON.stringify({
+                    userId: loginRes.userId,
+                    action: "Login",
+                    username: loginRes.username,
+                  })
+                );
+              }
             },
           });
         } else {

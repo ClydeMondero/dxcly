@@ -19,7 +19,7 @@ try {
             $_SESSION['logged_in'] = true;
             $_SESSION['account_type'] = $user['account_type'];
 
-            echo json_encode(['message' => 'Login Successful', 'success' => 'true', 'accountType' => $user['account_type']]);
+            echo json_encode(['message' => 'Login Successful', 'success' => 'true', 'accountType' => $user['account_type'], 'userId' => $user['id'], 'username' => $user['username']]);
             return;
         }
     }

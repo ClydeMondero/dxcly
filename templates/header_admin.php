@@ -31,6 +31,10 @@
                 <span><a href="dashboard.php?page=orders">Sales / Orders</a></span>
                 <hr />
             </span>
+            <span>
+                <span><a href="dashboard.php?page=logs">Logs</a></span>
+                <hr />
+            </span>
         </div>
 
         <div class="right">

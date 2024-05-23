@@ -42,7 +42,7 @@ try {
     $stmt->execute([$name, $username, $email, $contact, $address, $method, $location, $id]);
 
     //return the data in JSON format
-    echo json_encode(['message' => 'User data updated successfully', "success" => "true"]);
+    echo json_encode(['message' => 'User data updated successfully', "success" => "true", 'id' => $id]);
 } catch (Exception $e) {
     echo json_encode(['message' => $e]);
 }

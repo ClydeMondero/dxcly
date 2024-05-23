@@ -1,12 +1,12 @@
 $(document).ready(function () {
   $(".dashboard-container").hide();
 
-  fetchOrders();
+  fetchUsers();
 });
 
 let users = [];
 
-function fetchOrders() {
+function fetchUsers() {
   let usersReq = new XMLHttpRequest();
   usersReq.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {

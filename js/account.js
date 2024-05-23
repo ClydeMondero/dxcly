@@ -20,7 +20,6 @@ $(document).ready(function (e) {
     xhr.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         let data = JSON.parse(this.responseText);
-
         if (data.success == "true") {
           window.location.href = "login.php?change=true";
         }
@@ -229,8 +228,8 @@ function displayOrders(orders) {
 
 function updateHandler() {
   $("#update-btn").click(function () {
-    if (!$(".details")[0].checkValidity()) {
-      $(".details")[0].reportValidity();
+    if (!$(".account-details .details")[0].checkValidity()) {
+      $(".account-details .details")[0].reportValidity();
       return;
     }
 
@@ -258,7 +257,20 @@ function updateHandler() {
             timeOut: 2000,
             preventDuplicates: true,
             positionClass: "toast-bottom-left",
-            onHidden: uploadPicture,
+            onHidden: () => {
+              uploadPicture();
+
+              let logReq = new XMLHttpRequest();
+
+              logReq.open("POST", "api/logs/add.php", true);
+              logReq.send(
+                JSON.stringify({
+                  userId: updateRes.id,
+                  action: "Update Profile",
+                  username: $(".details #username").val(),
+                })
+              );
+            },
           });
         } else {
           toastr.warning(updateRes.message, "Warning", {
@@ -345,7 +357,24 @@ function logoutHandler() {
         let data = JSON.parse(this.responseText);
 
         if (data.success == "true") {
-          window.location.href = "index.php";
+          if (data.accountType != "admin") {
+            let logData = JSON.stringify({
+              userId: data.userId,
+              action: "Log Out",
+              username: $(".detail #username").val(),
+            });
+
+            let logReq = new XMLHttpRequest();
+
+            logReq.onreadystatechange = function () {
+              if (this.readyState == 4 && this.status == 200) {
+                window.location.href = "index.php";
+              }
+            };
+
+            logReq.open("POST", "api/logs/add.php", true);
+            logReq.send(logData);
+          }
         }
       }
     };

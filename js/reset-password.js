@@ -21,7 +21,22 @@ $(document).ready(function () {
             preventDuplicates: true,
             positionClass: "toast-bottom-left",
             onHidden: () => {
-              window.location.href = "login.php";
+              let logReq = new XMLHttpRequest();
+
+              logReq.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                  window.location.replace("login.php");
+                }
+              };
+
+              logReq.open("POST", "api/logs/add.php", true);
+              logReq.send(
+                JSON.stringify({
+                  userId: id,
+                  action: "Change Password",
+                  username: changeRes.username,
+                })
+              );
             },
           });
         } else {
