@@ -16,6 +16,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js" integrity="sha512-4F1cxYdMiAW98oomSLaygEwmCnIP38pb4Kx70yQYqRwLVCs3DbRumfBq82T08g/4LJ/smbFGFpmeFlQgoDccgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <?php
+    session_start();
+    if (isset($_SESSION['logged_in'])) {
+        if (!$_SESSION['logged_in']) {
+            header("Location: login.php");
+        }
+    }
+
+    //blocks buyer from accessing the admin dashboard page
+    if (isset($_SESSION['account_type'])) {
+        if ($_SESSION['account_type'] == "admin") {
+            header("Location: dashboard.php");
+        }
+    }
+    ?>
 
     <?php include  "templates/header.php"; ?>
 

@@ -18,6 +18,11 @@
 
     <?php
     session_start();
+    if (isset($_SESSION['logged_in'])) {
+        if (!$_SESSION['logged_in']) {
+            header("Location: login.php");
+        }
+    }
 
     //blocks buyer from accessing the admin dashboard page
     if (isset($_SESSION['account_type']) && $_SESSION['account_type'] == "buyer") {
